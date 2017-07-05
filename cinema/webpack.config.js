@@ -25,7 +25,15 @@ module.exports={
 			{
 				test:/\.html/,
 				loader:"html-loader"
-			}			
+			},
+			{
+				test:require.resolve('jquery'),
+				loader:'expose-loader?$!expose-loader?jQuery'
+			},
+			{
+				test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, 
+				loader: 'url-loader'
+			}
 		]
 	},
 	plugins:[
