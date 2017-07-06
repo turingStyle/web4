@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('cinema:server');
+var debug = require('debug')('zd:server');
 var http = require('http');
 
 /**
@@ -18,25 +18,25 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-var webpack = require("webpack");
-var webpackConfig = require("../webpack.config.js");
-var io = require("socket.io").listen(server);
-var compiler = webpack(webpackConfig,function(err,stats){
+
+var server = http.createServer(app);
+
+var webpack=require('webpack');
+var webpackPlugin=require('../webpack.config.js');
+var io=require('socket.io').listen(server);
+var compiler=webpack(webpackPlugin,function(err,stats){
 	console.log(stats.toString({
 		colors:true
-	}));
+	}))
 	compiler.watch({
 		aggregateTimeout:300,
 		poll:1000,
 		ignored:/node_modules/
 	},function(err,stats){
 		console.log('更新文件');
-		io.sockets.emit('news',{success:true})
-	})	
+		io.sockets.emit('news',{success:true});
+	})
 })
-var server = http.createServer(app);
-
-
 /**
  * Listen on provided port, on all network interfaces.
  */

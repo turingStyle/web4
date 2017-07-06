@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var ejs = require('ejs');
+var ejs=require('ejs');
 
 var index = require('./routes/index');
 
@@ -12,7 +12,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine('html',ejs.__express);
+app.engine('.html',ejs.__express);
 app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
