@@ -1,4 +1,82 @@
+/**{
+	border: 1px solid;
+}*/
 body{
-	background-color: black !important;
-	display: flex;
+	margin: 0px;
 }
+/* 导航开始 */
+nav{
+	width: 80%;
+	height: 70px;
+	margin: 0 auto;	
+	background-image: url(../../public/img/bg_nav.png);
+}
+nav ul{
+	line-height: 40px;
+	font-size: 20px;
+	
+}
+.nav-pills > li.active > a{
+	background-color: #FF0000 !important;
+	color: white !important;
+}
+a{
+	color: red !important;
+}
+nav .logo{
+	font-weight: bold;
+	font-size: 30px;
+	color: red;
+	text-shadow: 0px 0px 3px #FF0000;
+	animation-name: logo;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+@keyframes logo{
+	25%{transform: translate(0px,0px) ;}
+	50%{transform: translate(0px,-10px);}
+	75%{transform: translate(0px,0px);}
+	100%{transform: translate(0px,-10px);}
+}
+/* 导航结束 */
+/*banner开始*/
+.banner{
+	width: 100%;
+	height: 500px;
+}
+/*banner结束*/
+/* 电影列表开始 */
+.movie_list{
+	width: 80%;
+	margin: 0 auto;
+	background-color: navajowhite;
+	padding-top: 15px;
+}
+.movie_list .list>div{
+	padding: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+.title{
+	height: 60px;
+	font-size: 30px;
+	text-align: center;
+	background-image:url(../../public/img/bg_menu.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: auto 60px;
+	color: white;
+	padding-top:10px ;
+	padding-bottom: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	
+}
+.movie_list .list img{
+	width: 250px;
+	height: 350px;
+	border: 10px solid white;
+	margin-right: 20px;
+}
+
