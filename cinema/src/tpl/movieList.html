@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+	<!--区域导航-->
+	<header>
+		<nav>
+			<ul>
+			    <li class="active"><a href="#"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
+			    <li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
+			    <li >
+				   	<a href="#">
+				   		<div class="logo">
+					  		style影城
+					  	</div>
+				   	</a>
+			    </li>
+			    <li><a href="#">当前用户:张丹</a></li>
+			    <li><a href="#">退出登录</a></li>
+			</ul>
+		</nav>	
+	</header>
+	<!-- 导航结束 -->
+	<div class="main">
+		<table class="table table-responsive table-hover table-bordered" >
+			<thead>
+			    <th><input ng-model="quanxuan" type="checkbox">全选</th>
+			    <th>电影名称</th>
+			    <th>时长</th>
+			    <th>上映时间</th>
+			    <th>导演</th>
+			    <th>主演</th>
+			    <th>图片</th>
+			    <th>简介</th>
+			    <th>操作</th>
+			</thead>
+			<tbody>
+			    <tr>
+			        <td><input ng-checked="quanxuan" type="checkbox"  data-ng-click="xuanze($event,x.user_id)"/></td>
+			        <td >小黄人</td>
+			        <td >120min </td>
+			        <td >2017-7-7 </td>
+			        <td >snow</td>
+			        <td >snow</td>
+			        <td><img src="../../public/img/小黄人.jpg"></td>
+			        <td >小黄人旋风回归</td>
+			        <td ><a href="/users/editPage?id={{x.user_id}}">修改</a> | <a href="/users/delete?id={{x.user_id}}">删除</a></td>
+			    </tr>
+			    <tr>
+			        <td><input ng-checked="quanxuan" type="checkbox"  data-ng-click="xuanze($event,x.user_id)"/></td>
+			        <td >小黄人</td>
+			        <td >120min </td>
+			        <td >2017-7-7 </td>
+			        <td >snow</td>
+			        <td >snow</td>
+			        <td><img src="../../public/img/小黄人.jpg"></td>
+			        <td >小黄人旋风回归</td>
+			        <td ><a href="/users/editPage?id={{x.user_id}}">修改</a> | <a href="/users/delete?id={{x.user_id}}">删除</a></td>
+			    </tr>
+			    <tr>
+			        <td colspan=9>
+			            <button class="btn " data-ng-click="tianjia()">添加</button>
+			            <button class="btn " data-ng-click="deleteMany()">删除多个</button>
+			        </td>
+			    </tr>
+		    </tbody>
+		</table>
+	</div>
+	<!-- 主体区域结束 -->
+	<!-- footer开始 -->
+	<footer>			
+		<div class="border_top"></div>
+		<div class="border_middle">
+			<div class="logo">
+		  		<img src="../../public/img/footer.png"/>style影城
+		  	</div>
+		  	<div class="footer_detial">
+		  		<ul>
+					<li>公司介绍</li>
+					<li>|</li>
+					<li>联系我们</li>
+					<li>|</li>
+					<li>帮助中心</li>
+				</ul>
+				<span>style影城 © 2016 CJ CGV. All Rights Reserved. 沪ICP备 09051306</span>
+		  	</div>
+		</div>
+		<div class="border_bottom"></div>
+	</footer>
+	<!-- footer结束 -->
+	<script src="/socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

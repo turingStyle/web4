@@ -9,9 +9,7 @@ var entry =setEntry(files);
 var plugins=setPlugins(files);
 
 module.exports={
-	entry:{
-		main:'./src/js/index.js'
-	},
+	entry:entry,
 	output:{
 		filename:'js/[name]-bundle.js',
 		path:__dirname+'/public',
@@ -44,14 +42,7 @@ module.exports={
 			}
 		]
 	},
-	plugins:[
-		new extractTextPlugin('css/[name].css'),
-		new htmlWebpackPlugin({
-			template:'./src/tpl/index.html',
-			filename:'../views/index.html',
-			chunks:['main']
-		})
-	]
+	plugins:plugins
 }
 
 function setEntry(files){

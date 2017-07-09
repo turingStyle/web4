@@ -5,7 +5,7 @@
 		<title></title>
 		<link rel="shortcut icon" href="img/ico_movie_on.png" type="image/x-icon" >
 	</head>
-	<body ng-app="app">
+	<body ng-app="app" ng-controller="con">
 		<!--区域导航-->
 		<header>
 			<nav>
@@ -41,6 +41,7 @@
 				正在热映
 			</div>
 			<div class="list">
+				
 				<table >
 					<tr>
 						<td rowspan="6"><img src="../../public/img/bianXingJinGang.jpg"/></td>
@@ -217,7 +218,7 @@
 					            </div>
 					        </div> 
 					        <div class="modal-footer">
-					        	 <button type="button" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4" ng-click="denglu()">登录</button>
+					        	 <button type="button" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4" ng-click="login()">登录</button>
 				            </div>
 					    </form>
 		            </div>
@@ -274,7 +275,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-					        	 <button type="button" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4" ng-click="register()">注册</button>
+					        	 <button type="button" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4">注册</button>
 				            </div>
 						</form>
 		            </div>
@@ -286,14 +287,30 @@
 	</body>
 	<script language="javascript"> 
 		var app=angular.module("app",[]);
+		app.controller("con",["$scope","$http",function ($scope,$http) {
+			//注册
+            $scope.login=function () {
+//              alert(1)
+				var userName=$scope.userName;
+                var userPass=$scope.userPass;
+                var url="/user/register";
+                var data={userName:userName,userPass:userPass};
+                $http.post(url,data).then(function (result) {
+                   
+                });				
+            }
+    	}]);
 		var mySwiper = new Swiper('.swiper-container',{
 			autoplay: 1500//可选选项，自动滑动
-		})
+		});
 		$("#login").on("click",function(){
 			$("#myModal").modal("show");
-		})
+		});
 		$("#register").on("click",function(){
 			$("#myModal_register").modal("show");
-		})
+		});
+		
+		
+		
 	</script>
 </html>
