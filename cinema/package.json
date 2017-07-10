@@ -29,6 +29,7 @@
     "morgan": "~1.8.1",
     "mysql": "^2.13.0",
     "node-sass": "^4.5.3",
+    "node-uuid": "^1.4.8",
     "postcss-loader": "^2.0.6",
     "resolve-url-loader": "^2.1.0",
     "sass-loader": "^6.0.6",

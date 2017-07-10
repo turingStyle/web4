@@ -10,7 +10,7 @@
 		<header>
 			<nav>
 				<ul>
-				   <li class="active"><a href="#"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
+				   <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
 				   <li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
 				   <li >
 					   	<a href="#">
@@ -40,134 +40,31 @@
 			<div class="title">
 				正在热映
 			</div>
-			<div class="list">
+			<div class="list" >
+				<a href="/movie/movie_detial">
+					<table ng-repeat="x in list" ng-click="detial">
+						<tr>
+							<td rowspan="6"><img ng-src="{{x.movie_pic}}"/></td>
+							<td><h4>{{x.movie_name}}</h4></td>
+						</tr>
+						<tr>
+							<td>导演:{{x.movie_director}}</td>
+						</tr>
+						<tr>
+							<td>上映时间:{{x.movie_time}}</td>
+						</tr>
+						<tr>
+							<td>主演:{{x.movie_role}}</td>
+						</tr>
+						<tr>
+							<td>片长:{{x.movie_length}}</td>
+						</tr>
+						<tr>
+							<td><button class="btn btn-danger">立即购票</button></td>
+						</tr>
+					</table>
+				</a>
 				
-				<table >
-					<tr>
-						<td rowspan="6"><img src="../../public/img/bianXingJinGang.jpg"/></td>
-						<td><h4>变形金刚5:最后的骑士</h4></td>
-					</tr>
-					<tr>
-						<td>导演:</td>
-					</tr>
-					<tr>
-						<td>上映时间:</td>
-					</tr>
-					<tr>
-						<td>评分:</td>
-					</tr>
-					<tr>
-						<td>片长:</td>
-					</tr>
-					<tr>
-						<td><button class="btn btn-danger">立即购票</button></td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td rowspan="6"><img src="../../public/img/bianXingJinGang.jpg"/></td>
-						<td><h4>变形金刚5:最后的骑士</h4></td>
-					</tr>
-					<tr>
-						<td>导演:</td>
-					</tr>
-					<tr>
-						<td>上映时间:</td>
-					</tr>
-					<tr>
-						<td>评分:</td>
-					</tr>
-					<tr>
-						<td>片长:</td>
-					</tr>
-					<tr>
-						<td><button class="btn btn-danger">立即购票</button></td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td rowspan="6"><img src="../../public/img/bianXingJinGang.jpg"/></td>
-						<td><h4>变形金刚5:最后的骑士</h4></td>
-					</tr>
-					<tr>
-						<td>导演:</td>
-					</tr>
-					<tr>
-						<td>上映时间:</td>
-					</tr>
-					<tr>
-						<td>评分:</td>
-					</tr>
-					<tr>
-						<td>片长:</td>
-					</tr>
-					<tr>
-						<td><button class="btn btn-danger">立即购票</button></td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td rowspan="6"><img src="../../public/img/bianXingJinGang.jpg"/></td>
-						<td><h4>变形金刚5:最后的骑士</h4></td>
-					</tr>
-					<tr>
-						<td>导演:</td>
-					</tr>
-					<tr>
-						<td>上映时间:</td>
-					</tr>
-					<tr>
-						<td>评分:</td>
-					</tr>
-					<tr>
-						<td>片长:</td>
-					</tr>
-					<tr>
-						<td><button class="btn btn-danger">立即购票</button></td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td rowspan="6"><img src="../../public/img/bianXingJinGang.jpg"/></td>
-						<td><h4>变形金刚5:最后的骑士</h4></td>
-					</tr>
-					<tr>
-						<td>导演:</td>
-					</tr>
-					<tr>
-						<td>上映时间:</td>
-					</tr>
-					<tr>
-						<td>评分:</td>
-					</tr>
-					<tr>
-						<td>片长:</td>
-					</tr>
-					<tr>
-						<td><button class="btn btn-danger">立即购票</button></td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td rowspan="6"><img src="../../public/img/bianXingJinGang.jpg"/></td>
-						<td><h4>变形金刚5:最后的骑士</h4></td>
-					</tr>
-					<tr>
-						<td>导演:</td>
-					</tr>
-					<tr>
-						<td>上映时间:</td>
-					</tr>
-					<tr>
-						<td>评分:</td>
-					</tr>
-					<tr>
-						<td>片长:</td>
-					</tr>
-					<tr>
-						<td><button class="btn btn-danger">立即购票</button></td>
-					</tr>
-				</table>
 			</div>
 		</div>
 		<!-- 电影列表结束 -->
@@ -201,24 +98,24 @@
 		                <h4 class="modal-title" id="myModalLabel">用户登录</h4>
 		            </div>
 		            <div class="modal-body">
-		            	<form style="margin-top: 50px;" class="form form-horizontal" name="zhuceForm" novalidate="">
+		            	<form style="margin-top: 50px;" class="form form-horizontal" name="loginForm" novalidate="">
 					        <!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
 					        <div class="form-group">
-					            <label class="col-sm-3 text-right" for="userName">姓名:</label>
+					            <label class="col-sm-3 text-right" for="name">姓名:</label>
 					            <div class="col-sm-6">
-					                <input class="form-control" name="userName" id="userName" ng-model="userName" ng-minlength="2" ng-maxlength="5" required/>
-					                <div ng-show="zhuceForm.userName.$dirty && zhuceForm.userName.$invalid" class="alert alert-danger">请输入正确的姓名</div>
+					                <input class="form-control" name="name" id="name" ng-model="name" ng-minlength="2" ng-maxlength="5" required/>
+					                <div ng-show="loginForm.name.$dirty && loginForm.name.$invalid" class="alert alert-danger">请输入正确的姓名</div>
 					            </div>
 					        </div>
 					        <div class="form-group">
-					            <label class="col-sm-3 text-right" for="userPass">密码:</label>
+					            <label class="col-sm-3 text-right" for="pass">密码:</label>
 					            <div class="col-sm-6">
-					                <input class="form-control " name="userPass" id="userPass" ng-model="userPass" ng-minlength="5"  required=""/>
-					                <div ng-show="zhuceForm.userPass.$dirty && zhuceForm.userPass.$invalid" class="alert alert-danger">请输入正确的密码</div>
+					                <input class="form-control " name="pass" id="pass" ng-model="pass" ng-minlength="5"  required=""/>
+					                <div ng-show="loginForm.pass.$dirty && loginForm.pass.$invalid" class="alert alert-danger">请输入正确的密码</div>
 					            </div>
 					        </div> 
 					        <div class="modal-footer">
-					        	 <button type="button" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4" ng-click="login()">登录</button>
+					        	 <button type="button" ng-disabled="loginForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4" ng-click="login()">登录</button>
 				            </div>
 					    </form>
 		            </div>
@@ -235,7 +132,7 @@
 		                <h4 class="modal-title" id="myModalLabel">用户注册</h4>
 		            </div>
 		            <div class="modal-body">
-		            	<form style="margin-top: 50px;" class="form form-horizontal" name="zhuceForm" ng-submit="submit()" novalidate="" action="/zhuce/zhuce" method="post">
+		            	<form style="margin-top: 50px;" class="form form-horizontal" name="zhuceForm" ng-submit="submit()" novalidate="" action="/user/zhuce" method="post">
 							<!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
 							<div class="form-group">
 								<label class="col-sm-3 text-right" for="userName">姓名:</label>
@@ -275,7 +172,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-					        	 <button type="button" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4">注册</button>
+					        	 <button type="submit" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4">注册</button>
 				            </div>
 						</form>
 		            </div>
@@ -288,17 +185,34 @@
 	<script language="javascript"> 
 		var app=angular.module("app",[]);
 		app.controller("con",["$scope","$http",function ($scope,$http) {
-			//注册
+			//登录
             $scope.login=function () {
 //              alert(1)
-				var userName=$scope.userName;
-                var userPass=$scope.userPass;
-                var url="/user/register";
+				var userName=$scope.name;
+                var userPass=$scope.pass;
+                var url="/user/login";
                 var data={userName:userName,userPass:userPass};
                 $http.post(url,data).then(function (result) {
-                   
+                	var code = result.data.resultCode;
+                	if(code==1){
+                		alert("登录成功");
+                		$("#myModal").modal("hide");
+                	}else{
+                		alert("登录失败,请重新登录");
+                	}
                 });				
             }
+            //电影列表查询 循环到页面
+			var url="/movie/movieList";
+			$http.post(url).then(function (result) {
+	        	$scope.list = result.data.list;
+	        });	
+//	        $scope.detial=function(){
+//	        	var url="/movie/movie_detial";
+//				$http.post(url).then(function (result) {
+//		        	
+//		        });	
+//	        }
     	}]);
 		var mySwiper = new Swiper('.swiper-container',{
 			autoplay: 1500//可选选项，自动滑动
@@ -309,7 +223,6 @@
 		$("#register").on("click",function(){
 			$("#myModal_register").modal("show");
 		});
-		
 		
 		
 	</script>

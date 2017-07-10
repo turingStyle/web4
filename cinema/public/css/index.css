@@ -98,6 +98,13 @@ nav .logo{
 	padding-top:10px ;
 	padding-bottom: 10px;
 }
+.movie_list .list table{
+	width: 344px;
+	
+}
+.movie_list .list a{
+	color: #000000;
+}
 .movie_list .list img{
 	width: 144px;
 	height: 200px;
