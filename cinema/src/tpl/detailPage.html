@@ -28,33 +28,33 @@
 		<!-- 主体区域开始 -->
 		<div class="main">
 			<div class="background">
-				<img class="bg" src="../../public/img/yellowman.jpg" alt="" />
+				<img class="bg" src="<%=movie.movie_pic%>" alt="" />
 				<div class="introduction">
 					<table>
 						<tr>
-							<td rowspan="5"><img src="../../public/img/yellowman.jpg" alt="" /></td>
+							<td rowspan="5"><img src="<%=movie.movie_pic%>" alt="" /></td>
 							<td>
-								<h3>神偷奶爸3</h3>
+								<h3><%=movie.movie_name%></h3>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								小黄人旋风回归
+								导演：<%=movie.movie_director%>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								导演：皮艾尔·柯芬,凯尔·巴尔达     主演：史蒂夫·卡瑞尔,克里斯汀·韦格
+								主演 : <%=movie.movie_role%>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								90分钟
+								时长 : <%=movie.movie_length%>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								剧情：《神偷奶爸3》将延续前两部的温馨、搞笑风格，聚焦格鲁和露西的婚后生活，继续讲述格鲁和三个女儿的爆笑故事。
+								剧情 : <%=movie.movie_intro%>
 							</td>
 						</tr>
 					</table>

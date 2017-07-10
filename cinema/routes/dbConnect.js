@@ -13,7 +13,7 @@ var dbconnect=function(){
 	this.selectByUserNameAndPassWord = function(client,user,callback) {
 	    client.query("SELECT user_id, user_name, user_pass, user_sex, user_email FROM USER u WHERE u.user_name=? AND u.user_pass=?",[user.userName,user.userPass],
 	    	function (error,result) {
-	           console.log(result);
+//	           console.log(result);
 	           callback(result);
 	        }
 	    )
@@ -29,9 +29,15 @@ var dbconnect=function(){
 	//查询所有电影
 	this.selectMovie=function(client,callback){
 		client.query("SELECT movie_id, movie_name, movie_time, movie_intro, movie_role, movie_director, movie_length, movie_pic FROM ciname.movie",function(error,result){
-			console.log(result)
+//			console.log(result)
 			callback(result);
 		})
-	}		
+	}
+	//根据电影id查询一条电影详情
+	this.selectMovieById=function(client,movieId,callback){
+		client.query("SELECT movie_id, movie_name, movie_time, movie_intro, movie_role, movie_director, movie_length, movie_pic FROM movie WHERE movie_id=?",[movieId],function(error,result){
+			callback(result);
+		})
+	}
 }
 module.exports=new dbconnect();

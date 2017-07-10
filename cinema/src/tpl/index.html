@@ -41,30 +41,27 @@
 				正在热映
 			</div>
 			<div class="list" >
-				<a href="/movie/movie_detial">
-					<table ng-repeat="x in list" ng-click="detial">
-						<tr>
-							<td rowspan="6"><img ng-src="{{x.movie_pic}}"/></td>
-							<td><h4>{{x.movie_name}}</h4></td>
-						</tr>
-						<tr>
-							<td>导演:{{x.movie_director}}</td>
-						</tr>
-						<tr>
-							<td>上映时间:{{x.movie_time}}</td>
-						</tr>
-						<tr>
-							<td>主演:{{x.movie_role}}</td>
-						</tr>
-						<tr>
-							<td>片长:{{x.movie_length}}</td>
-						</tr>
-						<tr>
-							<td><button class="btn btn-danger">立即购票</button></td>
-						</tr>
-					</table>
-				</a>
-				
+				<table ng-repeat="x in list" ng-click="detial(x.movie_id)">
+					<tr>
+						<td rowspan="6"><img ng-src="{{x.movie_pic}}"/></td>
+						<td><h4>{{x.movie_name}}</h4></td>
+					</tr>
+					<tr>
+						<td>导演:{{x.movie_director}}</td>
+					</tr>
+					<tr>
+						<td>上映时间:{{x.movie_time}}</td>
+					</tr>
+					<tr>
+						<td>主演:{{x.movie_role}}</td>
+					</tr>
+					<tr>
+						<td>片长:{{x.movie_length}}</td>
+					</tr>
+					<tr>
+						<td><button class="btn btn-danger">立即购票</button></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<!-- 电影列表结束 -->
@@ -207,12 +204,10 @@
 			$http.post(url).then(function (result) {
 	        	$scope.list = result.data.list;
 	        });	
-//	        $scope.detial=function(){
-//	        	var url="/movie/movie_detial";
-//				$http.post(url).then(function (result) {
-//		        	
-//		        });	
-//	        }
+	        $scope.detial=function(movieId){
+	        	console.log(movieId)
+	       		location.href='/movie/movie_detial?id='+movieId;
+	        }
     	}]);
 		var mySwiper = new Swiper('.swiper-container',{
 			autoplay: 1500//可选选项，自动滑动

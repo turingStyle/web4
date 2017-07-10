@@ -13,6 +13,17 @@ router.post('/movieList', function(req, res, next) {
 });
 
 router.get('/movie_detial', function(req, res, next) {
-    res.render("detailPage");
+	var userName=req.session.username;  //从session中获取用户名
+    var isLogined=!!userName; 
+    console.log(userName);
+    
+	var movieId = req.query.id;
+	console.log(movieId);
+	var client=mysql.createServer();
+	mysql.selectMovieById(client,movieId,function(result){
+		console.log(result)
+		res.render('detailPage',{movie:result[0],isLogined:isLogined,username:userName || ''})
+	})
 });
+
 module.exports = router;
