@@ -5,12 +5,12 @@
 		<title></title>
 		<link rel="shortcut icon" href="img/ico_movie_on.png" type="image/x-icon" >
 	<link href="http://localhost:3000/css/detailPage.css" rel="stylesheet"></head>
-	<body>
+	<body ng-app="app" ng-controller="con">
 		<!--区域导航-->
 		<header>
 			<nav>
 				<ul>
-				    <li class="active"><a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAkCAYAAAB15jFqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2NDY1NEEyNEUyNzAxMUU0ODNBQTlBMTVGM0FDOTc1QSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2NDY1NEEyNUUyNzAxMUU0ODNBQTlBMTVGM0FDOTc1QSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjY0NjU0QTIyRTI3MDExRTQ4M0FBOUExNUYzQUM5NzVBIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY0NjU0QTIzRTI3MDExRTQ4M0FBOUExNUYzQUM5NzVBIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+n1KbJQAABH9JREFUeNqsl2tolXUcx3e2s+1sbau5Tducs3SbOhFKWFErr8zwheYlCi+orxT0hQ6hNxGRdIF61ehFL7pBgQWCJXhFqIwiBt5SUdB2dW5ep9vOtuOzs9P3B58n/p06Z8ed/eHD8+w5z/O7/37//wJdMyoy0lmVnd3/3F+vmh7Q3zFdX9Kfr4tT4qCeRd1vghmTuFD4sW5fFTVihjgr/pp0pVJUpMuwyBc9YkBc5Rr1I+C/H0gzvGb0ArFKtIlfUF4lqkWHlP3xfx9NdGWLlWKneIVn34p9UnRa3v2pq5fI0kddmWJMmMCZok70iSFxUdwiv16y8KSyAlxNSYO4KXrFCfKWI34SN6QsnEpOUlkhlL0n6sUd0Sw+lZKvJxKqVJaFc5l4Cq/N0w4nAo9cfYlWHkqsDdrFN+J38biFkf67P1lKrSqfFMvFDlFAVX4uLvO7eR5Np8/cZcqWiDUoLXXey+XeS3eY+EoLKJCtYq0ocvrukDgiwpM1LoOU+zPiM1GLcJsiNkN/o2jSHZP5RLFH1T5sSrPEQhSassPiAyp71Pm2lnmawUCYbSNPAkd0bZGwiO4tWktFoYiYI3pu7bVBvCB+0DtHTelmmv4rMY25af3YTxTCtIbl9Eemjn23G4MDjMJLRKxRTKXoRqSkXNcmMZ8iPGkfV1KNV8QKJkwdLeM53tr1GPeNFJxF46iTgvdFmXho6ZGXg1K6F4UZ6Aqa0k/ENqw1C1ejMH6dFxfELLHRGSzNFkIJX0VU7oqfxX49y6KfrfU6xTWb0f7WZiH4TrwsYnjlD3Xz/DaGncPqJrayM2xnHnkMcW9pKcGJUryvoJj2+EofE1vEXCs2dorbWH0fD0ZppTymlBk6nRooR7iFdR7y8iE7fhb4fWpCD/BBCbGvQ2g5Fsc4FSx2BsW/OkNsp6eTrVjQ6ddd4p0kLx+nYq8k+D3CJjDubPCVRgnleNtbbpLfZxMRd4VpvT6i9KKlw1caY1NOtp5mh7E1grB75L8XbLi8wTkpjNwQ3xUwhKrdgX8Pj+3lbjZqE9TFVmbN/qt4jlBaQT3BQKkk919QRDEGR4iqzqEQrbBmuUof0gbv0gpzmFS2p9rheR2TKuLsOrkIC2P0HXq5FUP7MSAPAz4yufGemnUfYoCtQXLdw2m9jWK5SYitHYrxshJqONpMwUO/UIO8N+gq9YvJ5uv35GAa3s7ktF6PsCLnVBjA2DHya5Onhc2hk36P8PubNmpdpf14Zj9sck4GAZ7fIHRtCOvleRZ5LMHIbI4168Vr/OYPFbsvdZWOIMT20LcIjV8spc5Ie5YBUYCQXELnkZZW5m2rk5oBeF687SodJlebyGsmXkYJzwB5bydkfRjp8V6OMyIbHIPrnblrOQ8F4ybKEC3yJRXpCyokRDkInU84y4jAVO5TOZLGgnFn2+sI2+mEtTjBVjfRFYk/DXZTnYsmKLCX8LdCBxXtHgQG45X2JxDWR9VeZSO+htAHzjsedTFMmoa0uY+mcu5t4RjSTjW7PezF8Z9//1NdfwswAMHSZQ9omQThAAAAAElFTkSuQmCC"/>首页</a></li>
+				    <li class="active"><a href="/index"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAkCAYAAAB15jFqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2NDY1NEEyNEUyNzAxMUU0ODNBQTlBMTVGM0FDOTc1QSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2NDY1NEEyNUUyNzAxMUU0ODNBQTlBMTVGM0FDOTc1QSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjY0NjU0QTIyRTI3MDExRTQ4M0FBOUExNUYzQUM5NzVBIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY0NjU0QTIzRTI3MDExRTQ4M0FBOUExNUYzQUM5NzVBIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+n1KbJQAABH9JREFUeNqsl2tolXUcx3e2s+1sbau5Tducs3SbOhFKWFErr8zwheYlCi+orxT0hQ6hNxGRdIF61ehFL7pBgQWCJXhFqIwiBt5SUdB2dW5ep9vOtuOzs9P3B58n/p06Z8ed/eHD8+w5z/O7/37//wJdMyoy0lmVnd3/3F+vmh7Q3zFdX9Kfr4tT4qCeRd1vghmTuFD4sW5fFTVihjgr/pp0pVJUpMuwyBc9YkBc5Rr1I+C/H0gzvGb0ArFKtIlfUF4lqkWHlP3xfx9NdGWLlWKneIVn34p9UnRa3v2pq5fI0kddmWJMmMCZok70iSFxUdwiv16y8KSyAlxNSYO4KXrFCfKWI34SN6QsnEpOUlkhlL0n6sUd0Sw+lZKvJxKqVJaFc5l4Cq/N0w4nAo9cfYlWHkqsDdrFN+J38biFkf67P1lKrSqfFMvFDlFAVX4uLvO7eR5Np8/cZcqWiDUoLXXey+XeS3eY+EoLKJCtYq0ocvrukDgiwpM1LoOU+zPiM1GLcJsiNkN/o2jSHZP5RLFH1T5sSrPEQhSassPiAyp71Pm2lnmawUCYbSNPAkd0bZGwiO4tWktFoYiYI3pu7bVBvCB+0DtHTelmmv4rMY25af3YTxTCtIbl9Eemjn23G4MDjMJLRKxRTKXoRqSkXNcmMZ8iPGkfV1KNV8QKJkwdLeM53tr1GPeNFJxF46iTgvdFmXho6ZGXg1K6F4UZ6Aqa0k/ENqw1C1ejMH6dFxfELLHRGSzNFkIJX0VU7oqfxX49y6KfrfU6xTWb0f7WZiH4TrwsYnjlD3Xz/DaGncPqJrayM2xnHnkMcW9pKcGJUryvoJj2+EofE1vEXCs2dorbWH0fD0ZppTymlBk6nRooR7iFdR7y8iE7fhb4fWpCD/BBCbGvQ2g5Fsc4FSx2BsW/OkNsp6eTrVjQ6ddd4p0kLx+nYq8k+D3CJjDubPCVRgnleNtbbpLfZxMRd4VpvT6i9KKlw1caY1NOtp5mh7E1grB75L8XbLi8wTkpjNwQ3xUwhKrdgX8Pj+3lbjZqE9TFVmbN/qt4jlBaQT3BQKkk919QRDEGR4iqzqEQrbBmuUof0gbv0gpzmFS2p9rheR2TKuLsOrkIC2P0HXq5FUP7MSAPAz4yufGemnUfYoCtQXLdw2m9jWK5SYitHYrxshJqONpMwUO/UIO8N+gq9YvJ5uv35GAa3s7ktF6PsCLnVBjA2DHya5Onhc2hk36P8PubNmpdpf14Zj9sck4GAZ7fIHRtCOvleRZ5LMHIbI4168Vr/OYPFbsvdZWOIMT20LcIjV8spc5Ie5YBUYCQXELnkZZW5m2rk5oBeF687SodJlebyGsmXkYJzwB5bydkfRjp8V6OMyIbHIPrnblrOQ8F4ybKEC3yJRXpCyokRDkInU84y4jAVO5TOZLGgnFn2+sI2+mEtTjBVjfRFYk/DXZTnYsmKLCX8LdCBxXtHgQG45X2JxDWR9VeZSO+htAHzjsedTFMmoa0uY+mcu5t4RjSTjW7PezF8Z9//1NdfwswAMHSZQ9omQThAAAAAElFTkSuQmCC"/>首页</a></li>
 				    <li><a href="#"><img src="data:image/gif;base64,R0lGODlhIwAeAPf/ACwmI7iieGhcSU5EOK6bdHdpUaqXcSgiIBURFUQ8MuLJlLCcdFlPP5iGZsq0hRoWGMSugbWgd/7hpQcFDH1uVa2Zc0Y9My4oJFxRQEg+NHBjTeDGkt3DkEM6MCUfHs+3h5CAYZB+YB4aGsKsf4d4XIl5XTw0Lb6pfbymfLumeychIHRnUG9iTJyLaJqJaGxfS5WEZI18XmBUQ4V1WkxCNkA4L4ByV3psU3NlT21hSzszLBgUFg0LEF5SQUI5MR8aG1ZLPScgICokIjcwKhIPEzUuKR0ZGlBGOVJIOn9wVoJzWK6ac8y1hrqlejkxKy0nI5uJZ9G6ibOfd9jAjaKQbKeUb45+YGpeSpeFZWhbSN7FkXNmTyIdHCMdHTkyK4t7XdvDj9e/jV5TQiAbG3lrUzApJb+qfh4ZGsavgiMeHdO8i9/GktS9i6GPayIdHYt7XtnBjmJWRCokIcmyhDMsJ5aEZI59X6SRbdW9i0tCNs22h6aUb+LJk8GrfzYvKdW9jF1SQbmlelFHOtK7imNXRYh4W4FyWFtQQKiVcId3W7KeduHIk8qzhPbbn9a/jLqle0E5MKuYcVtPQOTKlGdbSMmzhGVZRt/HksexgykkITAqJTErJiIcHDQtKMOtgY9+YFhNPt7Gkd3FkbKddmJVRLOedePJlKOQbEQ7Md3FkPLXnZeHZdrBjmhcR5KCYol6XJWDZNG5iFNIO9K6ibeieNS7impdSdzDj4R0WYV2Wv/oqbynfIFxWMWvgtrAjamWcJ+MavPZnuzRmezRmu7TmrWhd8+4h7aheKaTbaaTb1JIO0g/NFNJO7+pfpmIZ5KBYhsXGenPmEM6MmFWRJiGZWdaR+TLleXLlRwXGa2acz01LT83L7GedciyhJqHZiEdHKGPbGRYRbWfeLSfd5B/YbaieLaiedi/jbijeeLKlOLIk+bLlp6LadzEkMCrfsCrf6COa6GOa97FkGJXRMawgkk/NUpBNkpCNTgwKjgxKjkxKoZ2WoZ3W93EkCEcHOTLlSH/C05FVFNDQVBFMi4wAwEAAAAh/wtYTVAgRGF0YVhNUDw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDM0RTE4RDlFNEQ4MTFFNEEzQjJDQzdGQjk0RDM4QkIiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDM0RTE4RDhFNEQ4MTFFNEEzQjJDQzdGQjk0RDM4QkIiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjUxQ0YzQUYwRTI1NjExRTQ5MDlCRDAxQjNGQzI0N0RBIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjUxQ0YzQUYxRTI1NjExRTQ5MDlCRDAxQjNGQzI0N0RBIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAIfkECTIA/wAsAAAAACMAHgAACP8A/wkcSLCgwYJhuh1cyHDhGjKA+jScyBCRlzFdGlDcONDRGx1j0nh4wXGjGUHQeAyQxsWCmpIM/8DQwckJhVS8DjwhAPPgFA0eEAyBtWhYlQsecvUkuKaNCSNjGAxqRkxLMQDfDi1a+g/OjE1jijzBsOEOumuasPnT4Wkpum0P9AlRJwAVkxv1HLAg4g8AFJh/QOj4cS9Cll+PkNyxw8NZNh7+VGgoqYfQGC4FtOhaImBSIQGMEFgKA80fl3pwKKppkG9MpiV7NrSx8ISPMVBaNpnwReOBPzqKJoLRoAIyPmH7yvmZwGNUo0QfWv0IEANyJhINDTg5oI2Wjxq7yBn/qCZgQI5g4iqdIqIEAg8uHgAp8BmjyIMCLdjUYVDnExRGrPzSSTQVOFILNsrI88QP/mjjAEFh/NPLAJygwo0WGkzzARneKJGIKcc8YwQeIMSiig8XMEEJAn3BI5AiZZCRhDYYyQAGJHlksAcwI1iiAQpiCMEDInawI8ENO8STDGQHrCCQJ/5EGeUYy8zSxAiyXBEJMTgcEYkYEyDwwgLLNIIOES/ggYAbXAxwi0BOSOkPNGWMU4okO8hRiAQuBOFNBRqw0ME5PxRjygEd3OKDWnSkIFAOcp5xwBtzYPAKKbWl4A8F1mixjiQcJNCZLW48EoJ1IAiEiJwh1dPMHBXM3vMACTakAQQ1yLjTwwxI+LFKHD+QgYtvHoQjUDtdsJpGJgho8oQRHpThzw5ueHHBDkEAMEae/pxBRLL+bDOIQANEOYQJ9sgxxhPbiOBPJ+76k8YDP3hwBoNjnCFnlCpQIVAJZVCAyT8QgNKFIeaM0kcLJZRLyBskxBHHCoJ0cMgAZSSQxxMqJACDQHq4Mp9A/PizQijpvNOGISr4E8g/YAgEBxv/hAEBGGvsYoYaxVSy0FGQsHCEEP5cwIwhD3JFED1A+HNADZSQQwAmoihd0CWB3ADOCTRbzdAlXgsUEAAh+QQFMgD/ACwAAAAAIwAeAAAI/wD/CRxIsKDBgwgTKlzIsGHCKVCqOJz4r4oYf/6QUFwo5coTjBg1bjRopoAXkP4wOMk4ciATKxZQHsESpd8RlhshxkSZIMqSfkBvinQI5SLGJ1mc9EtwpN/PflES4FxYxeNRDFSC9tvSNMuXfiCHHiz5EWW/rEAT9MPS1F/bkASfXGHCRMlJf0i3gG2apMlNf/387gULdyBKjE7Qfj2ypUmSJSCBYhgcluBhtzYxRtnyBUsSNI8B90tCubDAy02X+KWCZUkS0kABo/mJubLhw3yTOOkb5cjn14Cp1Kxt+h/qzJj77YaMcXTst1ONH3bSBGgSwFH8hW7etHR0jBZ2Xnq92QRykihUkjwB+5xw9AJSBDIxyvMmbJtgqxOPXlCJvyswXYbBF4L5g4V3YvXnjxLyBXhZFv7otV+CBPl3hRQYYhiTeDz5o5ZtB0FxGUj/vMThiBQONIUSLLbIokQuOXhZii29hMRhNLYkEERG5aijilBA8eOQRBoUEAA7"/>订单</a></li>
 				    <li >
 					   	<a href="#">
@@ -19,8 +19,16 @@
 						  	</div>
 					   	</a>
 				    </li>
-				    <li><a href="#">当前用户:张丹</a></li>
-				    <li><a href="#">退出登录</a></li>
+				    <%  if(!isLogined){  %>
+					    <li id="login"><a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAATCAYAAAD4f6+NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxRjIxOEY3QUUxQjMxMUU0OUY0NEQ5OTM3MUM5MjRERSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxRjIxOEY3QkUxQjMxMUU0OUY0NEQ5OTM3MUM5MjRERSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFGMjE4Rjc4RTFCMzExRTQ5RjQ0RDk5MzcxQzkyNERFIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFGMjE4Rjc5RTFCMzExRTQ5RjQ0RDk5MzcxQzkyNERFIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+vddNGAAAAk9JREFUeNrMls2LTWEcx8+9DnNHSoiFujfj3iIrMivCCIWF8rqTyBJFE2Y1smKDhWYlGrKw8G5SQ6T8AXY2GDOaKTLSKO4d44zPr76nnrmdc88511341qd7z/Pye77nefk9J1cuFr0EdcBh2AWL4SpcgOmEfnk4DcfhKzyG6/DBbfRuZGRGp1wDQ21wBE5BxSmfhB3wIsHQZniqOKHew2W4BrUoQ/mYYJvgCfQ5Zj7DOMyBk16yTsjMuPqayprhAeiKm1ZXy/QGz2Cryr5BD6yGTjgGj1IYGlDbTvU9I3OmLTAIVyqlUkfUkhXgIJyF5U69rfdReOm1Rl1arnLdGBfhJstXNUMreTgHG2Au/DKj8FF76K3XWq2AGzosdjDaNeZr82GGtvNnKUxAoE6zYExrP7vFhn7DEo0ZOFtnPoz6mp15mpWwclqbt60uWE51QcrB804fVzWd1pwTy9pM+DpFi7z/Q1/MUNUpeA53VRaVEgJN7SFYkxD8DfTD9wax7DDtgW0qq/pOg1ewV3spSQ9kvhJTP6SBhlLEug0PlUhnOL+f0oxpWHkkToMpzVim/sHPvajEOJVxvSebrIvSVJShIGOQRpdr1lhBlKFCxiDtTdZFqRBlaF+G42/ZfaczU726A0PZ18CqNIG4yxbwsz989h1T6/TNYhvsp7J1vf7AQt17JZXZN855xdoIa6Gok3hLF2pcLJvJ3bA+nCC7OkaVxpvRsO7AT3o+AHf+ITGO2Vtd0ledn2EzWls7rt2OmTB19GvJahmM5HXS+v4KMABYP4gzdG7prgAAAABJRU5ErkJggg==" alt="" />&nbsp;登录</a></li>
+					    <li id="register"><a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAaCAIAAAAvw3vjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA0lJREFUeNqElVlIVFEYgM92lzHHwiXa1NJAS3PJBwsMpRxsVanIqJd6qNeilwqKopAehKCXeoiIHpQMyZaHSgk0TIqRSjLDNiMwtAjTzBnnLqd/7slpZpx7+mFg7vnud85//7Phkb7LmCPLsm+0Pe188sa2edX6vIN7KjSPipwAKoJzbgPmHGNMGI1QN5fBz7KsW/f911t7xNstd55rmnKgoSJsYgyUEDIdCPn7hxmj5aU5lBAYIELdXAKJQAqdPYMoKh73vAURehR0/FfgyJmW003tJy+0nWq6HTRMSmmEurlEvKQwFo0ZC2vwR9COroGhj6MC9fo/9PV/hmQj1M0l8BJ8XV1NaTSu31xGCIZ2QX/9DkZTKI4ovdxl8DNNs6aqQFPZw67X3Oa+ysKaqkIhC1q9YdW9Ry9/Tk5DY+aS1HVrc4hTbrmLh7ovtj94MfZ9QtdVwwhnAe9BXhlp3p3byrzzdGee7cF3Xzu6B1SVbdlYlL00FeYTep/6HZS47GpzN2CUKEa/TRw9VH3t5tNe/3voS1Wgptz/ahhG2u4r3ltXLnfZ++Ex5BJDn0a/jPxovft8Lmq+/Qy6lrvx8xs719TmODGiVIGQugRj5Bocukgsg+VsS5lLOEcSbtmWG3NWnswl4f5dB0bcxZ5FMhe6dv0qALDC3Chsxf+4SFIvHA7ZqFKXcEnBnFM0IQkZFnIvl3AJkk0FWrJoQfaytLntebmL/lbUPcimitUJFyC0+SrXzPcmXTq/v6QgKxqB0nhiNxRE7pLarcVNZxuSZu8UEXBWnDtev2tHiYXM9IzkjAxvNM3KTNU8OGgE5C7xYKUod7FzPvwLhdGy/GwdMaAkZHMjpuJWyAIkqMQlBieTASNuQuBxasYyEQUaNHncVMLuh3ZBJW74RgivsEQlE/csUJvHb4do6uYyZBoU0pqzjIhtYRgbtgacwixm4+gKZGSJZCUuM1XDVEw7FsOjwQxLM4VfX1s88n18YjIAOS5M9/p8+WCJ1CQuY1z3qnC00tgzk6ToXmpryNmvRStXXGlcHpwJQV+qQmEA6tx8QCUuPXZ4GzCPrsKpr2tKcpKW4vXsqy9fW7T8X9nEt4fvLPx30mbrK3H/CDAApXAZTpn3pl4AAAAASUVORK5CYII=" alt=""/>&nbsp;注册</a></li>
+					<% } %>
+					<%  if(isLogined){  %>
+	                    <li>当前用户是:<%= username %></li>
+	                    <li>
+	                    	<a href="/user/destory"  style="text-decoration: none">退出登录</a>
+	                    </li>
+	                <%  }  %>
 				</ul>
 			</nav>	
 		</header>
@@ -32,9 +40,14 @@
 				<div class="introduction">
 					<table>
 						<tr>
-							<td rowspan="5"><img src="<%=movie.movie_pic%>" alt="" /></td>
+							<td rowspan="6"><img src="<%=movie.movie_pic%>" alt="" /></td>
 							<td>
 								<h3><%=movie.movie_name%></h3>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								上映时间: <%=movie.movie_time%>
 							</td>
 						</tr>
 						<tr>
@@ -60,41 +73,15 @@
 					</table>
 				</div>
 			</div>
+			
 			<div class="session">
 				<table>
-					<caption>神偷奶爸3</caption>
-				    <tr >
-				        <td><span class="time">19:30</span></td>
-				        <td>3D</td>
-				        <td>6号厅</td>
-				        <td><span class="money">￥60</span></td>
-				        <td>
-				        	<button class="btn btn-danger">选座购票</button>
-				        </td>
-				    </tr>
-				    <tr >
-				        <td><span class="time">19:30</span></td>
-				        <td>3D</td>
-				        <td>6号厅</td>
-				        <td><span class="money">￥60</span></td>
-				        <td>
-				        	<button class="btn btn-danger">选座购票</button>
-				        </td>
-				    </tr>
-				    <tr >
-				        <td><span class="time">19:30</span></td>
-				        <td>3D</td>
-				        <td>6号厅</td>
-				        <td><span class="money">￥60</span></td>
-				        <td>
-				        	<button class="btn btn-danger">选座购票</button>
-				        </td>
-				    </tr>
-				    <tr >
-				        <td><span class="time">19:30</span></td>
-				        <td>3D</td>
-				        <td>6号厅</td>
-				        <td><span class="money">￥60</span></td>
+					<caption><%=movie.movie_name%></caption>
+				    <tr ng-repeat="x in sessionList" ng-click="selectSeat(x.session_id)">
+				        <td><span class="time">{{x.session_time}}</span></td>
+				        <td><span class="time">{{x.movie_type}}</span></td>
+				        <td>{{x.session_room}}</td>
+				        <td><span class="money">￥{{x.movie_price}}</span></td>
 				        <td>
 				        	<button class="btn btn-danger">选座购票</button>
 				        </td>
@@ -124,7 +111,133 @@
 			<!-- footer结束 -->
 		</div>
 		<!-- 主体区域结束 -->
-		
+		<!-- 登录框开始 -->
+		<div class="modal fade" id="myModal" tabIndex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal"  aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">用户登录</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<form style="margin-top: 50px;" class="form form-horizontal" name="loginForm" novalidate="">
+					        <!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
+					        <div class="form-group">
+					            <label class="col-sm-3 text-right" for="name">姓名:</label>
+					            <div class="col-sm-6">
+					                <input class="form-control" name="name" id="name" ng-model="name" ng-minlength="2" ng-maxlength="5" required/>
+					                <div ng-show="loginForm.name.$dirty && loginForm.name.$invalid" class="alert alert-danger">请输入正确的姓名</div>
+					            </div>
+					        </div>
+					        <div class="form-group">
+					            <label class="col-sm-3 text-right" for="pass">密码:</label>
+					            <div class="col-sm-6">
+					                <input class="form-control " name="pass" id="pass" ng-model="pass" ng-minlength="5"  required=""/>
+					                <div ng-show="loginForm.pass.$dirty && loginForm.pass.$invalid" class="alert alert-danger">请输入正确的密码</div>
+					            </div>
+					        </div> 
+					        <div class="modal-footer">
+					        	 <button type="button" ng-disabled="loginForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4" ng-click="login()">登录</button>
+				            </div>
+					    </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- 登陆框结束 -->
+		<!-- 注册框开始 -->
+		<div class="modal fade" id="myModal_register" tabIndex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal"  aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">用户注册</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<form style="margin-top: 50px;" class="form form-horizontal" name="zhuceForm" ng-submit="submit()" novalidate="" action="/user/zhuce" method="post">
+							<!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="userName">姓名:</label>
+								<div class="col-sm-6">
+									<input class="form-control" name="userName" id="userName" ng-model="userName" ng-minlength="2" ng-maxlength="5" required ng-blur="yanzheng()"/>
+									<div ng-show="zhuceForm.userName.$dirty && zhuceForm.userName.$invalid" class="alert alert-danger">请输入正确的姓名</div>
+									<div ng-show="chongfu" class="alert alert-danger">用户名重复</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="userPass">密码:</label>
+								<div class="col-sm-6">
+									<input class="form-control " name="userPass" id="userPass" ng-model="userPass" ng-minlength="5"  required=""/>
+									<div ng-show="zhuceForm.userPass.$dirty && zhuceForm.userPass.$invalid" class="alert alert-danger">请输入正确的密码</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="usersex1">性别:</label>
+								<div class="col-sm-6"> 
+									<input type="radio" class="radio radio-inline" name="userSex" id="userSex1" checked value="0"/><label for="userSex1">男</label>
+									<input type="radio" class="radio radio-inline" name="userSex" id="usersex2"  value="1"/><label for="usersex2">女</label>
+									<div class="alert alert-danger"  ng-show="zhuceForm.userSex.$error">必须选择一个性别</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="userEmail">Email:</label>
+								<div class="col-sm-6">
+									<input class="form-control " type="email" name="userEmail" id="userEmail" ng-model="userEmail"   required=""/>
+									<div ng-show="zhuceForm.userEmail.$dirty && zhuceForm.userEmail.$invalid" class="alert alert-danger">请输入正确的Email</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="phone">手机号:</label>
+								<div class="col-sm-6">
+									<input class="form-control " type="number" name="phone" id="phone" ng-model="phone"  ng-pattern="/^1[34578]\d{9}$/" required/>
+									<div ng-show="zhuceForm.phone.$dirty && zhuceForm.phone.$invalid && zhuceForm.phone.$error.pattern" class="alert alert-danger">请输入正确的手机号</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+					        	 <button type="submit" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4">注册</button>
+				            </div>
+						</form>
+		            </div>
+		        </div>
+		    </div>
+		</div>	
+		<!-- 注册框结束 -->
 		<script src="/socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="http://localhost:3000/js/detailPage-bundle.js"></script></body>
+	<script> 
+		var app=angular.module("app",[]);
+		app.controller("con",["$scope","$http",function ($scope,$http) {
+			//登录
+            $scope.login=function () {
+				var userName=$scope.name;
+                var userPass=$scope.pass;
+                var url="/user/login";
+                var data={userName:userName,userPass:userPass};
+                $http.post(url,data).then(function (result) {
+                	var code = result.data.resultCode;
+                	if(code==1){
+                		alert("登录成功");
+                		location.reload();
+                		$("#myModal").modal("hide");
+                	}else{
+                		alert("登录失败,请重新登录");
+                	}
+                });				
+            }
+            var movieId = "<%=movie.movie_id%>";
+//          console.log(movieId+"11111111");
+            var url = "/movie/session";
+            var data = {movieId:movieId}
+            $http.post(url,data).then(function (result) {
+            	$scope.sessionList=result.data.sessionList;
+            });	
+            
+    	}]);
+		$("#login").on("click",function(){
+			$("#myModal").modal("show");
+		});
+		$("#register").on("click",function(){
+			$("#myModal_register").modal("show");
+		});
+	</script>
 </html>

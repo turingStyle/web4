@@ -19,8 +19,16 @@
 						  	</div>
 					   	</a>
 				   </li>
-				   <li id="login"><a href="#"><img src="../../public/img/ico_effects.png" alt="" />&nbsp;登录</a></li>
-				   <li id="register"><a href="#"><img src="../../public/img/ico_community_move.png" alt=""/>&nbsp;注册</a></li>
+				   <%  if(!isLogined){  %>
+					    <li id="login"><a href="#"><img src="../../public/img/ico_effects.png" alt="" />&nbsp;登录</a></li>
+					    <li id="register"><a href="#"><img src="../../public/img/ico_community_move.png" alt=""/>&nbsp;注册</a></li>
+					<% } %>
+					<%  if(isLogined){  %>
+	                    <li>当前用户是:<%= username %></li>
+	                    <li>
+	                    	<a href="/user/destory"  style="text-decoration: none">退出登录</a>
+	                    </li>
+	                <%  }  %>
 				</ul>
 			</nav>	
 		</header>
@@ -193,6 +201,7 @@
                 	var code = result.data.resultCode;
                 	if(code==1){
                 		alert("登录成功");
+                		location.reload();
                 		$("#myModal").modal("hide");
                 	}else{
                 		alert("登录失败,请重新登录");

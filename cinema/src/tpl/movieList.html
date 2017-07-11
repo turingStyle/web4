@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="shortcut icon" href="img/ico_movie_on.png" type="image/x-icon" >
 </head>
-<body>
+<body ng-app="app" ng-controller="cro">
 	<!--区域导航-->
 	<header>
 		<nav>
 			<ul>
-			    <li class="active"><a href="#"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
+			    <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
 			    <li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
 			    <li >
 				   	<a href="#">
@@ -38,28 +39,20 @@
 			    <th>操作</th>
 			</thead>
 			<tbody>
-			    <tr>
-			        <td><input ng-checked="quanxuan" type="checkbox"  data-ng-click="xuanze($event,x.user_id)"/></td>
-			        <td >小黄人</td>
-			        <td >120min </td>
-			        <td >2017-7-7 </td>
-			        <td >snow</td>
-			        <td >snow</td>
-			        <td><img src="../../public/img/yellowman.jpg"></td>
-			        <td >小黄人旋风回归</td>
-			        <td ><a href="/users/editPage?id={{x.user_id}}">修改</a> | <a href="/users/delete?id={{x.user_id}}">删除</a></td>
+			    <tr ng-repeat="x in list">
+			        <td><input ng-checked="quanxuan" type="checkbox"  data-ng-click="xuanze($event,x.movie_id)"/></td>
+			        <td >{{x.movie_name}}</td>
+			        <td >{{x.movie_length}}</td>
+			        <td >{{x.movie_time}} </td>
+			        <td >{{x.movie_director}}</td>
+			        <td >{{x.movie_role}}</td>
+			        <td><img ng-src="{{x.movie_pic}}"></td>
+			        <td >{{x.movie_intro}}</td>
+			        <td ><a href="/movie/editPage?id={{x.movie_id}}">修改</a> | 
+			        	<a href="/movie/delete?id={{x.movie_id}}">删除</a> | 
+			        	<a href="/movie/session?id={{x.movie_id}}">场次</a></td>
 			    </tr>
-			    <tr>
-			        <td><input ng-checked="quanxuan" type="checkbox"  data-ng-click="xuanze($event,x.user_id)"/></td>
-			        <td >小黄人</td>
-			        <td >120min </td>
-			        <td >2017-7-7 </td>
-			        <td >snow</td>
-			        <td >snow</td>
-			        <td><img src="../../public/img/yellowman.jpg"></td>
-			        <td >小黄人旋风回归</td>
-			        <td ><a href="/users/editPage?id={{x.user_id}}">修改</a> | <a href="/users/delete?id={{x.user_id}}">删除</a></td>
-			    </tr>
+			    
 			    <tr>
 			        <td colspan=9>
 			            <button class="btn " data-ng-click="tianjia()">添加</button>
@@ -94,6 +87,48 @@
 	<script src="/socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
 </body>
 <script type="text/javascript">
-	
+	 var app=angular.module("app",[]);
+	 app.controller("cro",['$scope','$http',function($scope,$http){
+	 	var url="/movie/movieList";
+        $http.post(url).then(function(result){
+//            console.info(result);
+            $scope.list=result.data.list;
+        });
+        $scope.tianjia=function () {
+            location.href="/movie/insertPage";
+        }
+        //判定是否选中
+        var movieIds=[];
+        $scope.xuanze=function ($event,movieId) {
+            var check=$event.target.checked;//$event.target就是获得当前选中的那个标签
+            if (check==true){
+                movieIds.push(movieId);
+            }else{
+                var index=$.inArray(movieId,movieIds);
+                movieIds.splice(index,1);
+            }
+//            alert(movieIds);
+        }
+        $scope.deleteMany=function () {
+            if (movieIds.length>0){
+                var movieIdsStr=movieIds.join(",");
+                $http.post("/movie/deleteMany",{movieIdsStr:movieIdsStr}).then(function (result) {
+//                    console.log(result.data.resultCode);
+                    var code=result.data.resultCode;
+                    if (code==1){
+                        alert("删除成功");
+//                      for(var i=0;i<movieIds.length;i++){
+//                          $("#"+movieIds[i]).remove();
+//                      }
+						location.reload();
+                    }else{
+                        alert("删除失败");
+                    }
+                })
+            }else{
+                alert("请先选择要删除的商品")
+            }
+        }
+	}])
 </script>
 </html>

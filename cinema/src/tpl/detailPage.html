@@ -5,12 +5,12 @@
 		<title></title>
 		<link rel="shortcut icon" href="img/ico_movie_on.png" type="image/x-icon" >
 	</head>
-	<body>
+	<body ng-app="app" ng-controller="con">
 		<!--区域导航-->
 		<header>
 			<nav>
 				<ul>
-				    <li class="active"><a href="#"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
+				    <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
 				    <li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
 				    <li >
 					   	<a href="#">
@@ -19,8 +19,16 @@
 						  	</div>
 					   	</a>
 				    </li>
-				    <li><a href="#">当前用户:张丹</a></li>
-				    <li><a href="#">退出登录</a></li>
+				    <%  if(!isLogined){  %>
+					    <li id="login"><a href="#"><img src="../../public/img/ico_effects.png" alt="" />&nbsp;登录</a></li>
+					    <li id="register"><a href="#"><img src="../../public/img/ico_community_move.png" alt=""/>&nbsp;注册</a></li>
+					<% } %>
+					<%  if(isLogined){  %>
+	                    <li>当前用户是:<%= username %></li>
+	                    <li>
+	                    	<a href="/user/destory"  style="text-decoration: none">退出登录</a>
+	                    </li>
+	                <%  }  %>
 				</ul>
 			</nav>	
 		</header>
@@ -32,9 +40,14 @@
 				<div class="introduction">
 					<table>
 						<tr>
-							<td rowspan="5"><img src="<%=movie.movie_pic%>" alt="" /></td>
+							<td rowspan="6"><img src="<%=movie.movie_pic%>" alt="" /></td>
 							<td>
 								<h3><%=movie.movie_name%></h3>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								上映时间: <%=movie.movie_time%>
 							</td>
 						</tr>
 						<tr>
@@ -60,41 +73,15 @@
 					</table>
 				</div>
 			</div>
+			
 			<div class="session">
 				<table>
-					<caption>神偷奶爸3</caption>
-				    <tr >
-				        <td><span class="time">19:30</span></td>
-				        <td>3D</td>
-				        <td>6号厅</td>
-				        <td><span class="money">￥60</span></td>
-				        <td>
-				        	<button class="btn btn-danger">选座购票</button>
-				        </td>
-				    </tr>
-				    <tr >
-				        <td><span class="time">19:30</span></td>
-				        <td>3D</td>
-				        <td>6号厅</td>
-				        <td><span class="money">￥60</span></td>
-				        <td>
-				        	<button class="btn btn-danger">选座购票</button>
-				        </td>
-				    </tr>
-				    <tr >
-				        <td><span class="time">19:30</span></td>
-				        <td>3D</td>
-				        <td>6号厅</td>
-				        <td><span class="money">￥60</span></td>
-				        <td>
-				        	<button class="btn btn-danger">选座购票</button>
-				        </td>
-				    </tr>
-				    <tr >
-				        <td><span class="time">19:30</span></td>
-				        <td>3D</td>
-				        <td>6号厅</td>
-				        <td><span class="money">￥60</span></td>
+					<caption><%=movie.movie_name%></caption>
+				    <tr ng-repeat="x in sessionList" ng-click="selectSeat(x.session_id)">
+				        <td><span class="time">{{x.session_time}}</span></td>
+				        <td><span class="time">{{x.movie_type}}</span></td>
+				        <td>{{x.session_room}}</td>
+				        <td><span class="money">￥{{x.movie_price}}</span></td>
 				        <td>
 				        	<button class="btn btn-danger">选座购票</button>
 				        </td>
@@ -124,7 +111,133 @@
 			<!-- footer结束 -->
 		</div>
 		<!-- 主体区域结束 -->
-		
+		<!-- 登录框开始 -->
+		<div class="modal fade" id="myModal" tabIndex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal"  aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">用户登录</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<form style="margin-top: 50px;" class="form form-horizontal" name="loginForm" novalidate="">
+					        <!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
+					        <div class="form-group">
+					            <label class="col-sm-3 text-right" for="name">姓名:</label>
+					            <div class="col-sm-6">
+					                <input class="form-control" name="name" id="name" ng-model="name" ng-minlength="2" ng-maxlength="5" required/>
+					                <div ng-show="loginForm.name.$dirty && loginForm.name.$invalid" class="alert alert-danger">请输入正确的姓名</div>
+					            </div>
+					        </div>
+					        <div class="form-group">
+					            <label class="col-sm-3 text-right" for="pass">密码:</label>
+					            <div class="col-sm-6">
+					                <input class="form-control " name="pass" id="pass" ng-model="pass" ng-minlength="5"  required=""/>
+					                <div ng-show="loginForm.pass.$dirty && loginForm.pass.$invalid" class="alert alert-danger">请输入正确的密码</div>
+					            </div>
+					        </div> 
+					        <div class="modal-footer">
+					        	 <button type="button" ng-disabled="loginForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4" ng-click="login()">登录</button>
+				            </div>
+					    </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- 登陆框结束 -->
+		<!-- 注册框开始 -->
+		<div class="modal fade" id="myModal_register" tabIndex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal"  aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">用户注册</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<form style="margin-top: 50px;" class="form form-horizontal" name="zhuceForm" ng-submit="submit()" novalidate="" action="/user/zhuce" method="post">
+							<!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="userName">姓名:</label>
+								<div class="col-sm-6">
+									<input class="form-control" name="userName" id="userName" ng-model="userName" ng-minlength="2" ng-maxlength="5" required ng-blur="yanzheng()"/>
+									<div ng-show="zhuceForm.userName.$dirty && zhuceForm.userName.$invalid" class="alert alert-danger">请输入正确的姓名</div>
+									<div ng-show="chongfu" class="alert alert-danger">用户名重复</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="userPass">密码:</label>
+								<div class="col-sm-6">
+									<input class="form-control " name="userPass" id="userPass" ng-model="userPass" ng-minlength="5"  required=""/>
+									<div ng-show="zhuceForm.userPass.$dirty && zhuceForm.userPass.$invalid" class="alert alert-danger">请输入正确的密码</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="usersex1">性别:</label>
+								<div class="col-sm-6"> 
+									<input type="radio" class="radio radio-inline" name="userSex" id="userSex1" checked value="0"/><label for="userSex1">男</label>
+									<input type="radio" class="radio radio-inline" name="userSex" id="usersex2"  value="1"/><label for="usersex2">女</label>
+									<div class="alert alert-danger"  ng-show="zhuceForm.userSex.$error">必须选择一个性别</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="userEmail">Email:</label>
+								<div class="col-sm-6">
+									<input class="form-control " type="email" name="userEmail" id="userEmail" ng-model="userEmail"   required=""/>
+									<div ng-show="zhuceForm.userEmail.$dirty && zhuceForm.userEmail.$invalid" class="alert alert-danger">请输入正确的Email</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="phone">手机号:</label>
+								<div class="col-sm-6">
+									<input class="form-control " type="number" name="phone" id="phone" ng-model="phone"  ng-pattern="/^1[34578]\d{9}$/" required/>
+									<div ng-show="zhuceForm.phone.$dirty && zhuceForm.phone.$invalid && zhuceForm.phone.$error.pattern" class="alert alert-danger">请输入正确的手机号</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+					        	 <button type="submit" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4">注册</button>
+				            </div>
+						</form>
+		            </div>
+		        </div>
+		    </div>
+		</div>	
+		<!-- 注册框结束 -->
 		<script src="/socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
 	</body>
+	<script> 
+		var app=angular.module("app",[]);
+		app.controller("con",["$scope","$http",function ($scope,$http) {
+			//登录
+            $scope.login=function () {
+				var userName=$scope.name;
+                var userPass=$scope.pass;
+                var url="/user/login";
+                var data={userName:userName,userPass:userPass};
+                $http.post(url,data).then(function (result) {
+                	var code = result.data.resultCode;
+                	if(code==1){
+                		alert("登录成功");
+                		location.reload();
+                		$("#myModal").modal("hide");
+                	}else{
+                		alert("登录失败,请重新登录");
+                	}
+                });				
+            }
+            var movieId = "<%=movie.movie_id%>";
+//          console.log(movieId+"11111111");
+            var url = "/movie/session";
+            var data = {movieId:movieId}
+            $http.post(url,data).then(function (result) {
+            	$scope.sessionList=result.data.sessionList;
+            });	
+            
+    	}]);
+		$("#login").on("click",function(){
+			$("#myModal").modal("show");
+		});
+		$("#register").on("click",function(){
+			$("#myModal_register").modal("show");
+		});
+	</script>
 </html>

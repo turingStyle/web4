@@ -35,4 +35,10 @@ router.post('/zhuce', function(req, res, next) {
         }
     });
 });
+//销毁session
+router.get('/destory', function(req, res, next) {
+    req.session.destroy();//session的销毁
+    return res.redirect("/index");
+});
+
 module.exports = router;
