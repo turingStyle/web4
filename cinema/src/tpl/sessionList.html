@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>场次列表</title>
     <link rel="shortcut icon" href="img/ico_movie_on.png" type="image/x-icon" >
 </head>
-<body ng-app="app" ng-controller="cro">
+<body ng-app="app" ng-controller="con">
 	<!--区域导航-->
 	<header>
 		<nav>
@@ -28,39 +28,28 @@
 	<div class="main">
 		<table class="table table-responsive table-hover table-bordered" >
 			<thead>
-			    <th><input ng-model="quanxuan" type="checkbox">全选</th>
 			    <th>电影名称</th>
-			    <th>时长</th>
-			    <th>上映时间</th>
-			    <th>导演</th>
-			    <th>主演</th>
-			    <th>图片</th>
-			    <th>简介</th>
+			    <th>播放时间</th>
+			    <th>影厅类型</th>
+			    <th>场次房间</th>
+			    <th>票价</th>
 			    <th>操作</th>
 			</thead>
 			<tbody>
-			    <tr ng-repeat="x in list">
-			        <td><input ng-checked="quanxuan" type="checkbox"  data-ng-click="xuanze($event,x.movie_id)"/></td>
-			        <td >{{x.movie_name}}</td>
-			        <td >{{x.movie_length}}</td>
-			        <td >{{x.movie_time}} </td>
-			        <td >{{x.movie_director}}</td>
-			        <td >{{x.movie_role}}</td>
-			        <td><img ng-src="{{x.movie_pic}}"></td>
-			        <td >{{x.movie_intro}}</td>
+			    <% for(var i=0;i<session.length;i++){%>
+			     <tr>
+			        <td ><%=session[i].movie_name%></td>
+			        <td ><%=session[i].movie_time%></td>
+			        <td ><%=session[i].movie_type%></td>
+			        <td ><%=session[i].session_room%></td>
+			        <td ><%=session[i].movie_price%></td>
 			        <td >
 			        	<a href="/movie/editPage?id={{x.movie_id}}">修改</a> | 
-			        	<a href="/movie/delete?id={{x.movie_id}}">删除</a> | 
-			        	<a href="/movie/sessionList?id={{x.movie_id}}">场次</a>
+			        	<a href="/movie/delete?id={{x.movie_id}}">删除</a>	|
+			        	<a href="/movie/insertPage">添加</a>
 			        </td>
 			    </tr>
-			    
-			    <tr>
-			        <td colspan=9>
-			            <button class="btn " data-ng-click="tianjia()">添加</button>
-			            <button class="btn " data-ng-click="deleteMany()">删除多个</button>
-			        </td>
-			    </tr>
+			    <% } %>
 		    </tbody>
 		</table>
 	</div>
@@ -90,7 +79,7 @@
 </body>
 <script type="text/javascript">
 	 var app=angular.module("app",[]);
-	 app.controller("cro",['$scope','$http',function($scope,$http){
+	 app.controller("con",['$scope','$http',function($scope,$http){
 	 	var url="/movie/movieList";
         $http.post(url).then(function(result){
 //            console.info(result);
@@ -109,7 +98,6 @@
                 var index=$.inArray(movieId,movieIds);
                 movieIds.splice(index,1);
             }
-//            alert(movieIds);
         }
         $scope.deleteMany=function () {
             if (movieIds.length>0){
@@ -128,7 +116,6 @@
                 alert("请先选择要删除的商品")
             }
         }
-
 	}])
 </script>
 </html>

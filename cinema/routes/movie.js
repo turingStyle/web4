@@ -8,6 +8,18 @@ var fs=require("fs");
 
 
 /* GET home page. */
+//查询场次
+router.get('/sessionList', function(req, res, next) {
+	var movieId = req.query.id;
+//	console.log(movieId);
+	var client=mysql.createServer();
+	mysql.selectSessionByMovieId(client,movieId,function(result){
+		console.log(result)
+		res.render('sessionList',{session:result})
+		
+	})
+});
+
 //查询电影
 router.post('/movieList', function(req, res, next) {
     var client=mysql.createServer();
