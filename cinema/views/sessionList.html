@@ -82,7 +82,6 @@
 	 app.controller("con",['$scope','$http',function($scope,$http){
 	 	var url="/movie/movieList";
         $http.post(url).then(function(result){
-//            console.info(result);
             $scope.list=result.data.list;
         });
         $scope.tianjia=function () {
@@ -103,7 +102,6 @@
             if (movieIds.length>0){
                 var movieIdsStr=movieIds.join(",");
                 $http.post("/movie/deleteMany",{movieIdsStr:movieIdsStr}).then(function (result) {
-//                    console.log(result.data.resultCode);
                     var code=result.data.resultCode;
                     if (code==1){
                         alert("删除成功");

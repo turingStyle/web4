@@ -26,6 +26,10 @@ module.exports={
 				loader:"expose-loader?$!expose-loader?jQuery"
 			},
 			{
+				test:/\.vue$/,
+				loader:"vue-loader"
+			},
+			{
 				test:/\.html$/,
 				loader:'html-loader'
 			},

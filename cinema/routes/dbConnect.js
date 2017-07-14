@@ -14,7 +14,6 @@ var dbconnect=function(){
 	this.selectByUserNameAndPassWord = function(client,user,callback) {
 	    client.query("SELECT user_id, user_name, user_pass, user_sex, user_email FROM USER u WHERE u.user_name=? AND u.user_pass=?",[user.userName,user.userPass],
 	    	function (error,result) {
-//	           console.log(result);
 	           callback(result);
 	        }
 	    )
@@ -30,7 +29,6 @@ var dbconnect=function(){
 	//查询所有电影
 	this.selectMovie=function(client,callback){
 		client.query("SELECT movie_id, movie_name, movie_time, movie_intro, movie_role, movie_director, movie_length, movie_pic FROM ciname.movie",function(error,result){
-//			console.log(result)
 			callback(result);
 		})
 	}
@@ -54,7 +52,6 @@ var dbconnect=function(){
 	}
 	this.yanZhengMovieName=function(client,movieName,callback) {
 	    client.query("select count(*) shuliang from movie m where m.movie_name=?",[movieName],function (error,result) {
-//	            console.info(result[0].shuliang);
 	            callback(result[0].shuliang);
 	        }
 	    );
@@ -72,7 +69,6 @@ var dbconnect=function(){
 	    var y=0;
 	    for (var i=0;i<movieIds.length;i++){
 	        funs[i]=function (callback) {
-	            // console.log("这个是i=["+i+"]");
 	            client.query("DELETE FROM movie WHERE movie_id = ?",[movieIds[y]],function(error,result){
 	                if(error){
 	                    console.log("error:"+error.message);
@@ -82,13 +78,11 @@ var dbconnect=function(){
 	                if(result.affectedRows==1){
 	                    jieguo.push(result);
 	                }
-	                // console.log("这个是y=["+y+"]");
 	                callback(error,jieguo.length);
 	            })
 	        }
 	    }
 	    async.series(funs,function (error,result) {
-	        // console.info(jieguo.length+"$$$$$$$$$$$$");
 	        callback(jieguo.length);
 	    })
 	}
@@ -96,6 +90,39 @@ var dbconnect=function(){
 		client.query("SELECT m.movie_id, movie_name, movie_time, movie_intro, movie_role, movie_director, movie_length, movie_pic, session_id, session_time, movie_price, session_room, movie_type FROM movie m left join session s on m.movie_id=s.movie_id WHERE m.movie_id=?",[movieId],function(error,result){
 			callback(result);
 		})
+	}
+	//根据场次id查询座位
+	this.selectSeatBySessionId=function(client,sessionId,callback){
+		client.query("SELECT seat_id, n.session_id, seat_num, seat_state, n.movie_id, n.session_time, n.movie_price, n.session_room, n.movie_type ,m.movie_name FROM seat t LEFT JOIN SESSION n ON t.session_id=n.session_id LEFT JOIN movie m ON n.movie_id=m.movie_id WHERE n.session_id=?",[sessionId],function(error,result){
+			callback(result);
+		})
+	}
+	//根据座位id修改座位状态
+	this.updateSeatState=function(client,seatIds,callback){
+//		client.query("UPDATE seat SET seat_state = 0 WHERE seat_id IN (seatIdsStr)",function(error,result){
+//			callback(result.affectedRows);
+//		})
+		var jieguo=[];
+	    var funs=[];
+	    var y=0;
+	    for (var i=0;i<seatIds.length;i++){
+	        funs[i]=function (callback) {
+	            client.query("UPDATE seat SET seat_state = 0 WHERE seat_id =?",[seatIds[y]],function(error,result){
+	                if(error){
+	                    console.log("error:"+error.message);
+	                    return err;
+	                }
+	                y++;
+	                if(result.affectedRows==1){
+	                    jieguo.push(result);
+	                }
+	                callback(error,jieguo.length);
+	            })
+	        }
+	    }
+	    async.series(funs,function (error,result) {
+	        callback(jieguo.length);
+	    })
 	}
 }
 module.exports=new dbconnect();

@@ -11,6 +11,7 @@ var identityKey="zd";
 var index = require('./routes/index');
 var user = require('./routes/user');
 var movie = require('./routes/movie');
+var seat = require('./routes/seat');
 
 var app = express();
 
@@ -32,9 +33,6 @@ app.use(session({
     }*/
 }));
 
-
-
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -45,7 +43,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/user', user);
-app.use('/movie',movie)
+app.use('/movie',movie);
+app.use('/seat',seat);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -14,7 +14,7 @@ router.get('/sessionList', function(req, res, next) {
 //	console.log(movieId);
 	var client=mysql.createServer();
 	mysql.selectSessionByMovieId(client,movieId,function(result){
-		console.log(result)
+//		console.log(result)
 		res.render('sessionList',{session:result})
 		
 	})
@@ -121,11 +121,13 @@ router.get('/delete', function(req, res, next) {
 });
 //修改电影
 router.get('/editPage', function(req, res, next) {
+	var userName=req.session.username;  //从session中获取用户名
+    var isLogined=!!userName; 
     var movieId=req.query.id;
     var client=mysql.createServer();
     mysql.selectMovieById(client,movieId,function(result){
         // console.info(result);
-        res.render('movieEdit',{movie:result[0]});
+        res.render('movieEdit',{movie:result[0],isLogined:isLogined,username:userName || ''});
     })
 });
 router.post('/editMovie', function(req, res, next) {
@@ -190,5 +192,11 @@ router.post('/deleteMany', function(req, res, next) {
             return res.json({resultCode:0});
         }
     })
+});
+
+router.get('/moviePage', function(req, res, next) {
+	var userName=req.session.username;  //从session中获取用户名
+    var isLogined=!!userName; 
+    res.render('movieList',{isLogined:isLogined,username:userName || ''});
 });
 module.exports = router;

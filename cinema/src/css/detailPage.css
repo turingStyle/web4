@@ -62,29 +62,29 @@ nav .logo{
 .main .introduction img{
 	margin-right: 30px;
 }
-.session{
+#session{
 	width: 90%;
 	margin: 0 auto;
 	margin-top: 30px;
 }
-.session table{
+#session table{
 	width: 100%;
 	font-size: 20px;
 	color:gray;
 }
-.session table tr{
+#session table tr{
 	height: 80px;
 }
-.session table caption{
+#session table caption{
 	border-bottom: 1px solid gray;
 }
-.session .btn{
+#session .btn{
 	float: right;
 }
-.session .time{
+#session .time{
 	font-weight: bold;
 }
-.session .money{
+#session .money{
 	color: red;
 }
 /* 主体区域结束 */

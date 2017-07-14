@@ -11,7 +11,11 @@
 			<nav>
 				<ul>
 				   <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
-				   <li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
+				   <% if(username=='张三'){ %>
+				   		<li id=""><a href="/movie/moviePage">修改电影</a></li>
+				   <% }else{ %>
+				   		<li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
+				   	<% } %>
 				   <li >
 					   	<a href="#">
 					   		<div class="logo">
@@ -115,7 +119,7 @@
 					        <div class="form-group">
 					            <label class="col-sm-3 text-right" for="pass">密码:</label>
 					            <div class="col-sm-6">
-					                <input class="form-control " name="pass" id="pass" ng-model="pass" ng-minlength="5"  required=""/>
+					                <input type="password" class="form-control " name="pass" id="pass" ng-model="pass" ng-minlength="5"  required=""/>
 					                <div ng-show="loginForm.pass.$dirty && loginForm.pass.$invalid" class="alert alert-danger">请输入正确的密码</div>
 					            </div>
 					        </div> 
@@ -150,7 +154,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 text-right" for="userPass">密码:</label>
 								<div class="col-sm-6">
-									<input class="form-control " name="userPass" id="userPass" ng-model="userPass" ng-minlength="5"  required=""/>
+									<input type="password" class="form-control " name="userPass" id="userPass" ng-model="userPass" ng-minlength="5"  required=""/>
 									<div ng-show="zhuceForm.userPass.$dirty && zhuceForm.userPass.$invalid" class="alert alert-danger">请输入正确的密码</div>
 								</div>
 							</div>
@@ -192,7 +196,6 @@
 		app.controller("con",["$scope","$http",function ($scope,$http) {
 			//登录
             $scope.login=function () {
-//              alert(1)
 				var userName=$scope.name;
                 var userPass=$scope.pass;
                 var url="/user/login";

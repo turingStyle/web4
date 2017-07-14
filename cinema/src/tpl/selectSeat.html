@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-app="app" ng-controller="con">
+		<!-- 导航区域 -->
+		<header>
+			<nav>
+				<ul>
+				    <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
+				    <% if(username=='张三'){ %>
+				   		<li id=""><a href="/movie/moviePage">修改电影</a></li>
+				   <% }else{ %>
+				   		<li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
+				   	<% } %>
+				    <li >
+					   	<a href="#">
+					   		<div class="logo">
+						  		style影城
+						  	</div>
+					   	</a>
+				    </li>
+				   <%  if(!isLogined){  %>
+					    <li id="login"><a href="#"><img src="../../public/img/ico_effects.png" alt="" />&nbsp;登录</a></li>
+					    <li id="register"><a href="#"><img src="../../public/img/ico_community_move.png" alt=""/>&nbsp;注册</a></li>
+					<% } %>
+					<%  if(isLogined){  %>
+	                    <li>当前用户是:<%= username %></li>
+	                    <li>
+	                    	<a href="/user/destory"  style="text-decoration: none">退出登录</a>
+	                    </li>
+	                <%  }  %>
+				</ul>
+			</nav>	
+		</header>
+		<!-- 导航结束 -->
+		<!-- 主体开始 -->
+		<div class="main">
+			<div class="title">
+				<img src="/img/arrow_r2.png" alt="" />选座
+			</div>
+			<ul>
+				<li><img src="/img/ico_seat_empty.png" alt="" />可选座位</li>
+				<li><img src="/img/ico_seat_choose.png" alt="" />已选座位</li>
+				<li><img src="/img/ico_seat.png" alt="" />已售座位</li>
+			</ul>
+			<span class="screen"><%=seat[0].session_room%>银幕</span>
+			<div class="seat_main">
+				<div class="seat">
+					<% for(var i=0;i<seat.length;i++){ %>
+						<% if(seat[i].seat_state=='0'){%>
+							<div class="null" ng-click="choose(<%=seat[i].seat_id%>,<%=seat[i].seat_num%>)"></div>
+						<% }else{ %>
+							<div class="empty" ng-click="choose(<%=seat[i].seat_id%>,<%=seat[i].seat_num%>)"></div>
+						<% } %>
+					<% } %>
+				</div>
+				<div class="res">
+					<span class="orderTitle">我的订单</span>
+					<span class="movieName"><%=seat[0].movie_name%></span>
+					<span class="sessionRoom"><%=seat[0].session_room%></span>
+					<span class="sessionTime"><%=seat[0].session_time%></span>
+					<span class="price">订单总价:{{price}}</span>
+					<button class="btn btn-danger" ng-click="jieSuan()">选好了,去结算</button>
+				</div>
+			</div>
+		</div>
+		<!--主体结束-->
+		<!-- footer开始 -->
+		<footer>			
+			<div class="border_top"></div>
+			<div class="border_middle">
+				<div class="logo">
+			  		<img src="../../public/img/footer.png"/>style影城
+			  	</div>
+			  	<div class="footer_detial">
+			  		<ul>
+						<li>公司介绍</li>
+						<li>|</li>
+						<li>联系我们</li>
+						<li>|</li>
+						<li>帮助中心</li>
+					</ul>
+					<span>style影城 © 2016 CJ CGV. All Rights Reserved. 沪ICP备 09051306</span>
+			  	</div>
+			</div>
+			<div class="border_bottom"></div>
+		</footer>
+		<!-- footer结束 -->
+		<!-- 登录框开始 -->
+		<div class="modal fade" id="myModal" tabIndex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal"  aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">用户登录</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<form style="margin-top: 50px;" class="form form-horizontal" name="loginForm" novalidate="">
+					        <!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
+					        <div class="form-group">
+					            <label class="col-sm-3 text-right" for="name">姓名:</label>
+					            <div class="col-sm-6">
+					                <input class="form-control" name="name" id="name" ng-model="name" ng-minlength="2" ng-maxlength="5" required/>
+					                <div ng-show="loginForm.name.$dirty && loginForm.name.$invalid" class="alert alert-danger">请输入正确的姓名</div>
+					            </div>
+					        </div>
+					        <div class="form-group">
+					            <label class="col-sm-3 text-right" for="pass">密码:</label>
+					            <div class="col-sm-6">
+					                <input type="password" class="form-control " name="pass" id="pass" ng-model="pass" ng-minlength="5"  required=""/>
+					                <div ng-show="loginForm.pass.$dirty && loginForm.pass.$invalid" class="alert alert-danger">请输入正确的密码</div>
+					            </div>
+					        </div> 
+					        <div class="modal-footer">
+					        	 <button type="button" ng-disabled="loginForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4" ng-click="login()">登录</button>
+				            </div>
+					    </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- 登陆框结束 -->
+		<!-- 注册框开始 -->
+		<div class="modal fade" id="myModal_register" tabIndex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal"  aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">用户注册</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<form style="margin-top: 50px;" class="form form-horizontal" name="zhuceForm" ng-submit="submit()" novalidate="" action="/user/zhuce" method="post">
+							<!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="userName">姓名:</label>
+								<div class="col-sm-6">
+									<input class="form-control" name="userName" id="userName" ng-model="userName" ng-minlength="2" ng-maxlength="5" required ng-blur="yanzheng()"/>
+									<div ng-show="zhuceForm.userName.$dirty && zhuceForm.userName.$invalid" class="alert alert-danger">请输入正确的姓名</div>
+									<div ng-show="chongfu" class="alert alert-danger">用户名重复</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="userPass">密码:</label>
+								<div class="col-sm-6">
+									<input type="password" class="form-control " name="userPass" id="userPass" ng-model="userPass" ng-minlength="5"  required=""/>
+									<div ng-show="zhuceForm.userPass.$dirty && zhuceForm.userPass.$invalid" class="alert alert-danger">请输入正确的密码</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="usersex1">性别:</label>
+								<div class="col-sm-6"> 
+									<input type="radio" class="radio radio-inline" name="userSex" id="userSex1" checked value="0"/><label for="userSex1">男</label>
+									<input type="radio" class="radio radio-inline" name="userSex" id="usersex2"  value="1"/><label for="usersex2">女</label>
+									<div class="alert alert-danger"  ng-show="zhuceForm.userSex.$error">必须选择一个性别</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="userEmail">Email:</label>
+								<div class="col-sm-6">
+									<input class="form-control " type="email" name="userEmail" id="userEmail" ng-model="userEmail"   required=""/>
+									<div ng-show="zhuceForm.userEmail.$dirty && zhuceForm.userEmail.$invalid" class="alert alert-danger">请输入正确的Email</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 text-right" for="phone">手机号:</label>
+								<div class="col-sm-6">
+									<input class="form-control " type="number" name="phone" id="phone" ng-model="phone"  ng-pattern="/^1[34578]\d{9}$/" required/>
+									<div ng-show="zhuceForm.phone.$dirty && zhuceForm.phone.$invalid && zhuceForm.phone.$error.pattern" class="alert alert-danger">请输入正确的手机号</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+					        	 <button type="submit" ng-disabled="zhuceForm.$invalid" class="btn  btn-danger col-sm-4 col-sm-offset-4">注册</button>
+				            </div>
+						</form>
+		            </div>
+		        </div>
+		    </div>
+		</div>	
+		<!-- 注册框结束 -->
+		<script src="/socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/javascript">
+		var app=angular.module("app",[]);
+		app.controller("con",['$scope','$http',function($scope,$http){
+			$scope.price=0;
+			$scope.money="<%=seat[0].movie_price%>";
+			$scope.selected="<%=seat[0].seat_num%>";
+			var seadIds=[]
+			for(var i=0;i<$(".empty").length;i++){
+				$($(".empty")[i]).on("click",function(){
+					if($(this).hasClass('empty')){
+						$(this).removeClass('empty');	
+						$(this).addClass('choose');
+						$scope.price+=parseInt($scope.money);
+					}else{
+						$(this).removeClass('choose');	
+						$(this).addClass('empty');
+						$scope.price-=parseInt($scope.money);
+					}
+				})
+			}
+			$scope.choose=function(seatId,seatNum){
+				if($.inArray(seatId,seadIds)==-1){
+					seadIds.push(seatId);
+				}else{
+					seadIds.splice((seatNum-1),1)
+				}	
+			}
+			$scope.jieSuan=function(){
+				if(seadIds.length==0){
+					alert('请选择');
+				}else{
+					var seatIdsStr=seadIds.join(",");
+		            var zongJia=$scope.price;
+		            var url = "/seat/jieSuan";
+		            var data={seatIdsStr:seatIdsStr,zongJia:zongJia};
+		            $http.post(url,data).then(function(result){
+		            	var code=result.data.resultCode;
+		            	var msg=result.data.msg;
+		            	if(code==1){
+		            		alert(msg);
+		            		location.reload()
+		            	}else{
+		            		alert(msg);
+		            	}
+		            })
+				}
+			}
+			//登录
+            $scope.login=function () {
+				var userName=$scope.name;
+                var userPass=$scope.pass;
+                var url="/user/login";
+                var data={userName:userName,userPass:userPass};
+                $http.post(url,data).then(function (result) {
+                	var code = result.data.resultCode;
+                	if(code==1){
+                		alert("登录成功");
+                		location.reload();
+                		$("#myModal").modal("hide");
+                	}else{
+                		alert("登录失败,请重新登录");
+                	}
+                });				
+            }
+		}])
+		$("#login").on("click",function(){
+			$("#myModal").modal("show");
+		});
+		$("#register").on("click",function(){
+			$("#myModal_register").modal("show");
+		});
+	</script>
+</html>

@@ -11,7 +11,11 @@
 			<nav>
 				<ul>
 				    <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
-				    <li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
+				    <% if(username=='张三'){ %>
+				   		<li id=""><a href="/movie/moviePage">修改电影</a></li>
+				   <% }else{ %>
+				   		<li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
+				   	<% } %>
 				    <li >
 					   	<a href="#">
 					   		<div class="logo">
@@ -74,7 +78,7 @@
 				</div>
 			</div>
 			
-			<div class="session">
+			<div id="session">
 				<table>
 					<caption><%=movie.movie_name%></caption>
 				    <tr ng-repeat="x in sessionList" ng-click="selectSeat(x.session_id)">
@@ -132,7 +136,7 @@
 					        <div class="form-group">
 					            <label class="col-sm-3 text-right" for="pass">密码:</label>
 					            <div class="col-sm-6">
-					                <input class="form-control " name="pass" id="pass" ng-model="pass" ng-minlength="5"  required=""/>
+					                <input type="password" class="form-control " name="pass" id="pass" ng-model="pass" ng-minlength="5"  required=""/>
 					                <div ng-show="loginForm.pass.$dirty && loginForm.pass.$invalid" class="alert alert-danger">请输入正确的密码</div>
 					            </div>
 					        </div> 
@@ -167,7 +171,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 text-right" for="userPass">密码:</label>
 								<div class="col-sm-6">
-									<input class="form-control " name="userPass" id="userPass" ng-model="userPass" ng-minlength="5"  required=""/>
+									<input type="password" class="form-control " name="userPass" id="userPass" ng-model="userPass" ng-minlength="5"  required=""/>
 									<div ng-show="zhuceForm.userPass.$dirty && zhuceForm.userPass.$invalid" class="alert alert-danger">请输入正确的密码</div>
 								</div>
 							</div>
@@ -231,7 +235,10 @@
             $http.post(url,data).then(function (result) {
             	$scope.sessionList=result.data.sessionList;
             });	
-            
+            $scope.selectSeat=function(sessionId){
+//          	alert(sessionId);
+            	location.href='/seat/selectSeat?id='+sessionId;
+            }
     	}]);
 		$("#login").on("click",function(){
 			$("#myModal").modal("show");

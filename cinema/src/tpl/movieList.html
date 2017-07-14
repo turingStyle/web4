@@ -11,7 +11,6 @@
 		<nav>
 			<ul>
 			    <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
-			    <li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
 			    <li >
 				   	<a href="#">
 				   		<div class="logo">
@@ -19,8 +18,16 @@
 					  	</div>
 				   	</a>
 			    </li>
-			    <li><a href="#">当前用户:张丹</a></li>
-			    <li><a href="#">退出登录</a></li>
+			    <%  if(!isLogined){  %>
+				    <li id="login"><a href="#"><img src="../../public/img/ico_effects.png" alt="" />&nbsp;登录</a></li>
+				    <li id="register"><a href="#"><img src="../../public/img/ico_community_move.png" alt=""/>&nbsp;注册</a></li>
+				<% } %>
+				<%  if(isLogined){  %>
+                    <li>当前用户是:<%= username %></li>
+                    <li>
+                    	<a href="/user/destory"  style="text-decoration: none">退出登录</a>
+                    </li>
+                <%  }  %>
 			</ul>
 		</nav>	
 	</header>
@@ -54,7 +61,6 @@
 			        	<a href="/movie/sessionList?id={{x.movie_id}}">场次</a>
 			        </td>
 			    </tr>
-			    
 			    <tr>
 			        <td colspan=9>
 			            <button class="btn " data-ng-click="tianjia()">添加</button>
