@@ -53,8 +53,6 @@ nav .logo{
 /* 底部区域开始 */
 footer{
 	width: 100%;
-	position: fixed;
-	bottom: 0px;
 }
 footer .border_top{
 	height: 10px;

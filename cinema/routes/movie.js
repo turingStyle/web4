@@ -11,10 +11,8 @@ var fs=require("fs");
 //查询场次
 router.get('/sessionList', function(req, res, next) {
 	var movieId = req.query.id;
-//	console.log(movieId);
 	var client=mysql.createServer();
 	mysql.selectSessionByMovieId(client,movieId,function(result){
-//		console.log(result)
 		res.render('sessionList',{session:result})
 		
 	})
@@ -31,13 +29,9 @@ router.post('/movieList', function(req, res, next) {
 router.get('/movie_detial', function(req, res, next) {
 	var userName=req.session.username;  //从session中获取用户名
     var isLogined=!!userName; 
-//  console.log(userName);
-    
 	var movieId = req.query.id;
-//	console.log(movieId);
 	var client=mysql.createServer();
 	mysql.selectMovieById(client,movieId,function(result){
-//		console.log(result)
 		res.render('detailPage',{movie:result[0],isLogined:isLogined,username:userName || ''})
 		
 	})
@@ -51,8 +45,9 @@ router.post('/session', function(req, res, next) {
 });
 //跳到添加页面
 router.get('/insertPage', function(req, res, next) {
-    res.render('movieInsert');
+   return res.render('movieInsert');
 });
+
 //验证电影名重复
 router.post('/yanZhengMovieName', function(req, res, next) {
     var movieName=req.body.movieName;
@@ -94,7 +89,7 @@ router.post('/insert', function(req, res, next) {
 		            mysql.insertMovie(client,movie,url,function(result){
 		                // console.info(result);
 		                if(result==1){
-		                    res.render("movieList");
+		                    res.redirect("/movie/moviePage");
 		                }else{
 		                    res.render("error");
 		                }
@@ -113,7 +108,7 @@ router.get('/delete', function(req, res, next) {
     mysql.deleteMovieByMovieId(client,movieId,function(result){
         // console.info(result);
         if (result==1){
-            res.render("movieList");
+            res.redirect("/movie/moviePage");
         }else{
             res.render('error');
         }
@@ -123,11 +118,10 @@ router.get('/delete', function(req, res, next) {
 router.get('/editPage', function(req, res, next) {
 	var userName=req.session.username;  //从session中获取用户名
     var isLogined=!!userName; 
-    var movieId=req.query.id;
+    var movieOne=req.query.id;
     var client=mysql.createServer();
-    mysql.selectMovieById(client,movieId,function(result){
-        // console.info(result);
-        res.render('movieEdit',{movie:result[0],isLogined:isLogined,username:userName || ''});
+    mysql.selectMovieById(client,movieOne,function(result){
+        return res.render('movieEditPage',{movie:result[0],isLogined:isLogined,username:userName || ''});
     })
 });
 router.post('/editMovie', function(req, res, next) {
@@ -138,7 +132,6 @@ router.post('/editMovie', function(req, res, next) {
     //开始上传
     form.parse(req,function(err,fields,files){
         // console.info(files);
-
         if(err){
             console.log('parse error: '+err);
         }else{
@@ -165,14 +158,12 @@ router.post('/editMovie', function(req, res, next) {
                     console.log('文件删除成功');
                 })
                 cclj="/img/"+inputFile.originalFilename;
-
             }
             var client=mysql.createServer();
             var movie =fields;
-            // console.log(cclj);
             mysql.editMovie(client,movie,cclj,function (result) {
                 if (result==1){
-                    res.render("movieList");
+                    res.redirect("/movie/moviePage");
                 }else{
                     res.render('error');
                 }
@@ -193,10 +184,18 @@ router.post('/deleteMany', function(req, res, next) {
         }
     })
 });
-
 router.get('/moviePage', function(req, res, next) {
 	var userName=req.session.username;  //从session中获取用户名
     var isLogined=!!userName; 
     res.render('movieList',{isLogined:isLogined,username:userName || ''});
 });
+//查询场次
+router.get('/sessionList', function(req, res, next) {
+	var movieId = req.query.id;
+	var client=mysql.createServer();
+	mysql.selectSessionByMovieId(client,movieId,function(result){
+		res.render('sessionList',{session:result})
+	})
+});
+
 module.exports = router;

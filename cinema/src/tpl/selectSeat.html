@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<link rel="shortcut icon" href="img/ico_movie_on.png" type="image/x-icon" >
 	</head>
 	<body ng-app="app" ng-controller="con">
 		<!-- 导航区域 -->
@@ -10,10 +11,10 @@
 			<nav>
 				<ul>
 				    <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
-				    <% if(username=='张三'){ %>
+				    <% if(username=='admin'){ %>
 				   		<li id=""><a href="/movie/moviePage">修改电影</a></li>
 				   <% }else{ %>
-				   		<li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
+				   		<li><a href="/seat/alreadyPay"><img src="../../public/img/ico_event.gif"/>订单</a></li>
 				   	<% } %>
 				    <li >
 					   	<a href="#">
@@ -63,6 +64,7 @@
 					<span class="sessionRoom"><%=seat[0].session_room%></span>
 					<span class="sessionTime"><%=seat[0].session_time%></span>
 					<span class="price">订单总价:{{price}}</span>
+					{{seatNum}}
 					<button class="btn btn-danger" ng-click="jieSuan()">选好了,去结算</button>
 				</div>
 			</div>
@@ -188,7 +190,8 @@
 			$scope.price=0;
 			$scope.money="<%=seat[0].movie_price%>";
 			$scope.selected="<%=seat[0].seat_num%>";
-			var seadIds=[]
+			var seadIds=[];
+			var seatNums=[];
 			for(var i=0;i<$(".empty").length;i++){
 				$($(".empty")[i]).on("click",function(){
 					if($(this).hasClass('empty')){
@@ -205,8 +208,10 @@
 			$scope.choose=function(seatId,seatNum){
 				if($.inArray(seatId,seadIds)==-1){
 					seadIds.push(seatId);
+					seatNums.push(seatNum);
 				}else{
-					seadIds.splice((seatNum-1),1)
+					seadIds.splice((seatNum-1),1);
+					seatNums.splice((seatNum-1),1);
 				}	
 			}
 			$scope.jieSuan=function(){
@@ -214,15 +219,18 @@
 					alert('请选择');
 				}else{
 					var seatIdsStr=seadIds.join(",");
-		            var zongJia=$scope.price;
+					var price=$scope.money;
+//		            var zongJia=$scope.price;
 		            var url = "/seat/jieSuan";
-		            var data={seatIdsStr:seatIdsStr,zongJia:zongJia};
+		            var data={seatIdsStr:seatIdsStr,price:price};
 		            $http.post(url,data).then(function(result){
 		            	var code=result.data.resultCode;
 		            	var msg=result.data.msg;
 		            	if(code==1){
 		            		alert(msg);
 		            		location.reload()
+		            	}else if(code==0){
+		            		alert(msg);
 		            	}else{
 		            		alert(msg);
 		            	}

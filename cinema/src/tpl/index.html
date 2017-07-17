@@ -11,10 +11,10 @@
 			<nav>
 				<ul>
 				   <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
-				   <% if(username=='张三'){ %>
+				   <% if(username=='admin'){ %>
 				   		<li id=""><a href="/movie/moviePage">修改电影</a></li>
 				   <% }else{ %>
-				   		<li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
+				   		<li><a href="/seat/alreadyPay"><img src="../../public/img/ico_event.gif"/>订单</a></li>
 				   	<% } %>
 				   <li >
 					   	<a href="#">
@@ -107,7 +107,7 @@
 		                <h4 class="modal-title" id="myModalLabel">用户登录</h4>
 		            </div>
 		            <div class="modal-body">
-		            	<form style="margin-top: 50px;" class="form form-horizontal" name="loginForm" novalidate="">
+		            	<form class="form form-horizontal" name="loginForm" novalidate="">
 					        <!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
 					        <div class="form-group">
 					            <label class="col-sm-3 text-right" for="name">姓名:</label>
@@ -141,7 +141,7 @@
 		                <h4 class="modal-title" id="myModalLabel">用户注册</h4>
 		            </div>
 		            <div class="modal-body">
-		            	<form style="margin-top: 50px;" class="form form-horizontal" name="zhuceForm" ng-submit="submit()" novalidate="" action="/user/zhuce" method="post">
+		            	<form class="form form-horizontal" name="zhuceForm" ng-submit="submit()" novalidate="" action="/user/zhuce" method="post">
 							<!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
 							<div class="form-group">
 								<label class="col-sm-3 text-right" for="userName">姓名:</label>

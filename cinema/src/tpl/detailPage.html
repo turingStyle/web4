@@ -14,7 +14,7 @@
 				    <% if(username=='张三'){ %>
 				   		<li id=""><a href="/movie/moviePage">修改电影</a></li>
 				   <% }else{ %>
-				   		<li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
+				   		<li><a href="/seat/alreadyPay"><img src="../../public/img/ico_event.gif"/>订单</a></li>
 				   	<% } %>
 				    <li >
 					   	<a href="#">
@@ -85,7 +85,7 @@
 				        <td><span class="time">{{x.session_time}}</span></td>
 				        <td><span class="time">{{x.movie_type}}</span></td>
 				        <td>{{x.session_room}}</td>
-				        <td><span class="money">￥{{x.movie_price}}</span></td>
+				        <td><span class="money">{{x.movie_price | currency}}</span></td>
 				        <td>
 				        	<button class="btn btn-danger">选座购票</button>
 				        </td>

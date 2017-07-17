@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="shortcut icon" href="img/ico_movie_on.png" type="image/x-icon" >
+		<script src="/js/show_picture.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-app="app" ng-controller="cro">
+		<!--区域导航-->
+		<header>
+			<nav>
+				<ul>
+				    <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
+				</ul>
+			</nav>	
+		</header>
+		<!-- 导航结束 -->
+		<!-- 添加列表 -->
+		<form class="form form-horizontal" name="movieForm"  action="/sessionRoutes/insert" method="post">
+        <!--用户名  密码  性别  年龄 身份证 手机号  邮箱 -->
+        <div class="form-group">
+            <label class="col-sm-3 text-right" for="movieTime">播放时间:</label>
+            <div class="col-sm-6">
+                <input class="form-control " name="movieTime" id="movieTime" ng-model="movieTime"   required=""/>
+                <div ng-show="movieForm.movieTime.$dirty && movieForm.movieTime.$invalid" class="alert alert-danger">请输入正确上映时间</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-right" for="movieType">影厅类型:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="movieType" id="movieType" ng-model="movieType" required="" />
+                <div class="alert alert-danger"  ng-show="movieForm.movieType.$invalid && movieForm.movieType.$dirty">请输入电影导演</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-right" for="sessionRoom">场次房间:</label>
+            <div class="col-sm-6">
+                <input class="form-control " type="text" name="sessionRoom" id="sessionRoom" ng-model="sessionRoom"   required=""/>
+                <div ng-show="movieForm.sessionRoom.$dirty && movieForm.sessionRoom.$invalid" class="alert alert-danger">请输入电影主演</div>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-sm-3 text-right" for="moviePrice">票价:</label>
+            <div class="col-sm-6">
+                <input class="form-control " type="text" name="moviePrice" id="moviePrice" ng-model="moviePrice"   required=""/>
+                <div ng-show="movieForm.moviePrice.$dirty && movieForm.moviePrice.$invalid" class="alert alert-danger">请输入电影介绍</div>
+            </div>
+        </div>
+        <input type="hidden" name="movieId" value="<%=movieId%>"/>
+        <div class="text-center">
+            <button type="submit" ng-disabled="movieForm.$invalid" class="btn btn-warning">提交</button>
+            <button type="reset" class="btn btn-danger">清空</button>
+        </div>
+    </form>
+    <!-- 列表结束 -->
+    <!-- footer开始 -->
+	<footer>			
+		<div class="border_top"></div>
+		<div class="border_middle">
+			<div class="logo">
+		  		<img src="../../public/img/footer.png"/>style影城
+		  	</div>
+		  	<div class="footer_detial">
+		  		<ul>
+					<li>公司介绍</li>
+					<li>|</li>
+					<li>联系我们</li>
+					<li>|</li>
+					<li>帮助中心</li>
+				</ul>
+				<span>style影城 © 2016 CJ CGV. All Rights Reserved. 沪ICP备 09051306</span>
+		  	</div>
+		</div>
+		<div class="border_bottom"></div>
+	</footer>
+	<!-- footer结束 -->
+    <script src="/socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/javascript">
+	 var app=angular.module("app",[]);
+	 app.controller("cro",['$scope','$http',function($scope,$http){
+	 	$scope.yanzheng=function () {
+            $scope.chongfu=false;
+            var movieName=$scope.movieName;
+            if (movieName!=undefined){
+                var url="/movie/yanZhengMovieName";
+                var data={movieName:movieName};
+                $http.post(url,data).then(function (result) {
+                    var code=result.data.resultCode;
+                    if (code==1){
+                        $scope.chongfu=true;
+                    }
+                })
+            }
+        }
+	}])
+	</script>
+</html>

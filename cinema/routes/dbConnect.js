@@ -33,20 +33,35 @@ var dbconnect=function(){
 		})
 	}
 	//根据电影id查询一条电影详情
-	this.selectMovieById=function(client,movieId,callback){
-		client.query("SELECT movie_id, movie_name, movie_time, movie_intro, movie_role, movie_director, movie_length, movie_pic FROM movie WHERE movie_id=?",[movieId],function(error,result){
+	this.selectMovieById=function(client,movieOne,callback){
+		client.query("SELECT movie_id, movie_name, movie_time, movie_intro, movie_role, movie_director, movie_length, movie_pic FROM movie WHERE movie_id=?",[movieOne],function(error,result){
 			callback(result);
 		})
 	}
 	//添加电影
 	this.insertMovie=function(client,movie,newPath,callback){
-    client.query("INSERT INTO movie(movie_id, movie_name, movie_time, movie_intro, movie_role, movie_director, movie_length, movie_pic) VALUES (?,?,?,?,?,?,?,?)",[uuid.v4(),movie.movieName[0],movie.movieTime[0],movie.movieIntro[0],movie.movieRole[0],movie.movieDirector[0],movie.movieLength[0],newPath],function(error,result){
-        callback(result.affectedRows);
-	    })
+	    client.query("INSERT INTO movie(movie_id, movie_name, movie_time, movie_intro, movie_role, movie_director, movie_length, movie_pic) VALUES (?,?,?,?,?,?,?,?)",[uuid.v4(),movie.movieName[0],movie.movieTime[0],movie.movieIntro[0],movie.movieRole[0],movie.movieDirector[0],movie.movieLength[0],newPath],
+	    function(error,result){
+	        callback(result.affectedRows);
+		})
 	}
-	//商品删除
+	//添加场次
+	this.insertSession=function(client,sessionData,callback){
+	    client.query("INSERT INTO SESSION (session_id, movie_id, session_time, movie_price, session_room, movie_type) VALUES (?,?,?,?,?,?)",[uuid.v4(),sessionData.movieId,sessionData.movieTime,sessionData.moviePrice,sessionData.sessionRoom,sessionData.movieType],
+	    function(error,result){
+	        callback(result.affectedRows);
+		})
+	}
+
+	//电影删除
 	this.deleteMovieByMovieId=function(client,movieId,callback){
 	    client.query("DELETE FROM movie WHERE movie_id = ?",[movieId],function(error,result){
+	        callback(result.affectedRows);
+	    })
+	}
+	//场次删除
+	this.deleteSessionBySessionId=function(client,sessionId,callback){
+	    client.query("DELETE FROM session WHERE session_id = ?",[sessionId],function(error,result){
 	        callback(result.affectedRows);
 	    })
 	}
@@ -56,13 +71,19 @@ var dbconnect=function(){
 	        }
 	    );
 	}
-	//商品修改
+	//电影修改
 	this.editMovie=function(client,movie,url,callback){
 	    client.query("UPDATE movie SET  movie_name = ?, movie_time = ?, movie_intro = ?, movie_role = ?, movie_director = ?, movie_length = ?, movie_pic = ? where movie_id = ? ",[movie.movieName[0],movie.movieTime[0],movie.movieIntro[0],movie.movieRole[0],movie.movieDirector[0],movie.movieLength[0],url,movie.movieId[0]],function(error,result){
 	        callback(result.affectedRows);
 	    })
 	}
-	//删除多个商品
+	//场次修改
+	this.editSession=function(client,seDetial,callback){
+	    client.query("UPDATE SESSION SET session_time =?, movie_price =?, session_room =?, movie_type =? WHERE session_id = ?",[seDetial.sessionTime,seDetial.moviePrice,seDetial.sessionRoom,seDetial.movieType,seDetial.sessionId],function(error,result){
+	       callback(result.affectedRows);
+	    })
+	}
+	//删除多个电影
 	this.deleteManyMovieByMovieIds=function (client,movieIds,callback){
 	    var jieguo=[];
 	    var funs=[];
@@ -91,6 +112,11 @@ var dbconnect=function(){
 			callback(result);
 		})
 	}
+	this.selectSessionBySessionId=function(client,sessionId,callback){
+		client.query("SELECT session_id, movie_id, session_time, movie_price, session_room, movie_type FROM  SESSION WHERE session_id=?",[sessionId],function(error,result){
+			callback(result);
+		})
+	}
 	//根据场次id查询座位
 	this.selectSeatBySessionId=function(client,sessionId,callback){
 		client.query("SELECT seat_id, n.session_id, seat_num, seat_state, n.movie_id, n.session_time, n.movie_price, n.session_room, n.movie_type ,m.movie_name FROM seat t LEFT JOIN SESSION n ON t.session_id=n.session_id LEFT JOIN movie m ON n.movie_id=m.movie_id WHERE n.session_id=?",[sessionId],function(error,result){
@@ -99,9 +125,6 @@ var dbconnect=function(){
 	}
 	//根据座位id修改座位状态
 	this.updateSeatState=function(client,seatIds,callback){
-//		client.query("UPDATE seat SET seat_state = 0 WHERE seat_id IN (seatIdsStr)",function(error,result){
-//			callback(result.affectedRows);
-//		})
 		var jieguo=[];
 	    var funs=[];
 	    var y=0;
@@ -124,5 +147,43 @@ var dbconnect=function(){
 	        callback(jieguo.length);
 	    })
 	}
+	//插入订单
+	this.insertOrder=function(client,order,callback){
+		console.log(order)
+//		client.query("INSERT INTO dingDan (user_id,seat_id,total_price) VALUES (?,?,?)",[order.userId,order.seatId,order.totalPrice],function(error,result){
+//			callback(result.affectedRows);
+//			
+//		})
+		var jieguo=[];
+	    var funs=[];
+	    var y=0;
+	    for (var i=0;i<order.seatId.length;i++){
+	        funs[i]=function (callback) {
+	            client.query("INSERT INTO dingDan (user_id,seat_id,movie_price) VALUES (?,?,?)",[order.userId,order.seatId[y],order.price],function(error,result){
+	                if(error){
+	                    console.log("error:"+error.message);
+	                    return err;
+	                }
+	                y++;
+	                if(result.affectedRows==1){
+	                    jieguo.push(result);
+	                }
+	                callback(error,jieguo.length);
+	            })
+	        }
+	    }
+	    async.series(funs,function (error,result) {
+	        callback(jieguo.length);
+	    })
+
+	}
+	//根据用户id查询所有订单
+	this.selectAlreadyPay=function(client,userId,callback){
+		client.query("SELECT * FROM movie m LEFT JOIN SESSION s ON m.movie_id=s.movie_id LEFT JOIN seat t ON s.session_id=t.session_id LEFT JOIN dingDan d ON t.seat_id=d.seat_id where user_id=?",[userId],function(error,result){
+			console.log(result);
+			callback(result);
+		})
+	}
 }
+
 module.exports=new dbconnect();

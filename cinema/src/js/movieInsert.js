@@ -1,4 +1,3 @@
-import '../css/movieList.css';
 import '../css/movieInsert.css';
 import './hmr.js';
 import 'jquery';

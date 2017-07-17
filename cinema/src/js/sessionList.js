@@ -1,4 +1,4 @@
-import '../css/movieList.css';
+import '../css/sessionList.css';
 import './hmr.js';
 import 'jquery';
 import './angular.min.js';

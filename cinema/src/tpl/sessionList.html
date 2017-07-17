@@ -11,16 +11,6 @@
 		<nav>
 			<ul>
 			    <li class="active"><a href="/index"><img src="../../public/img/ico_movie_on.png"/>首页</a></li>
-			    <li><a href="#"><img src="../../public/img/ico_event.gif"/>订单</a></li>
-			    <li >
-				   	<a href="#">
-				   		<div class="logo">
-					  		style影城
-					  	</div>
-				   	</a>
-			    </li>
-			    <li><a href="#">当前用户:张丹</a></li>
-			    <li><a href="#">退出登录</a></li>
 			</ul>
 		</nav>	
 	</header>
@@ -39,14 +29,14 @@
 			    <% for(var i=0;i<session.length;i++){%>
 			     <tr>
 			        <td ><%=session[i].movie_name%></td>
-			        <td ><%=session[i].movie_time%></td>
+			        <td ><%=session[i].session_time%></td>
 			        <td ><%=session[i].movie_type%></td>
 			        <td ><%=session[i].session_room%></td>
 			        <td ><%=session[i].movie_price%></td>
 			        <td >
-			        	<a href="/movie/editPage?id={{x.movie_id}}">修改</a> | 
-			        	<a href="/movie/delete?id={{x.movie_id}}">删除</a>	|
-			        	<a href="/movie/insertPage">添加</a>
+			        	<a href="/sessionRoutes/editPage?id=<%=session[i].session_id%>">修改</a> | 
+			        	<a href="/sessionRoutes/delete?id=<%=session[i].session_id%>&movieId=<%=session[i].movie_id%>">删除</a>	|
+			        	<a href="/sessionRoutes/insertSessions?id=<%=session[i].movie_id%>">添加</a>
 			        </td>
 			    </tr>
 			    <% } %>
@@ -85,35 +75,9 @@
             $scope.list=result.data.list;
         });
         $scope.tianjia=function () {
-            location.href="/movie/insertPage";
+            location.href="/sessionRoutes/insertSession";
         }
-        //判定是否选中
-        var movieIds=[];
-        $scope.xuanze=function ($event,movieId) {
-            var check=$event.target.checked;//$event.target就是获得当前选中的那个标签
-            if (check==true){
-                movieIds.push(movieId);
-            }else{
-                var index=$.inArray(movieId,movieIds);
-                movieIds.splice(index,1);
-            }
-        }
-        $scope.deleteMany=function () {
-            if (movieIds.length>0){
-                var movieIdsStr=movieIds.join(",");
-                $http.post("/movie/deleteMany",{movieIdsStr:movieIdsStr}).then(function (result) {
-                    var code=result.data.resultCode;
-                    if (code==1){
-                        alert("删除成功");
-						location.reload();
-                    }else{
-                        alert("删除失败");
-                    }
-                })
-            }else{
-                alert("请先选择要删除的商品")
-            }
-        }
+       
 	}])
 </script>
 </html>
